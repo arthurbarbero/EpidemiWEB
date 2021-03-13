@@ -67,22 +67,22 @@ CREATE TABLE business.dse_disease (
 );
 
 CREATE TABLE business.sym_symptoms (
-    id_symptoms SERIAL NOT NULL,
+    id_symptom SERIAL NOT NULL,
     st_name CHARACTER VARYING NOT NULL UNIQUE,
     st_description CHARACTER VARYING NOT NULL,
     nm_severity INT NOT NULL,
     created_at DATE NOT NULL DEFAULT now(),
 	updated_at DATE NOT NULL DEFAULT now(),
-    CONSTRAINT pk_id_symptoms PRIMARY KEY (id_symptoms)
+    CONSTRAINT pk_id_symptom PRIMARY KEY (id_symptom)
 );
 
 CREATE TABLE business.disease_symptoms (
     fk_disease BIGINT NOT NULL,
-    fk_symptoms BIGINT NOT NULL,
+    fk_symptom BIGINT NOT NULL,
     CONSTRAINT fk_disease_symptoms_disease FOREIGN KEY (fk_disease)
         REFERENCES business.dse_disease (id_disease),
-    CONSTRAINT fk_disease_symptoms_symptoms FOREIGN KEY (fk_symptoms)
-        REFERENCES business.sym_symptoms (id_symptoms)
+    CONSTRAINT fk_disease_symptoms_symptoms FOREIGN KEY (fk_symptom)
+        REFERENCES business.sym_symptoms (id_symptom)
 );
 
 CREATE TABLE business.inc_incidence (
