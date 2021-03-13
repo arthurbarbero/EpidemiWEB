@@ -14,7 +14,7 @@ CREATE TABLE users.adr_address (
     id_address SERIAL NOT NULL,
     st_address CHARACTER VARYING NOT NULL,
     nm_number INT NOT NULL,
-    st_complement CHARACTER VARYING NOT NULL,
+    st_complement CHARACTER VARYING,
     st_district CHARACTER VARYING NOT NULL,
     st_city CHARACTER VARYING NOT NULL,
     st_state CHARACTER VARYING NOT NULL,

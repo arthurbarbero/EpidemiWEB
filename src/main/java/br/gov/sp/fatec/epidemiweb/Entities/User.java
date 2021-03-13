@@ -16,7 +16,6 @@ import java.util.Set;
 @Entity
 @Table(name = "users.usr_users")
 public class User {
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "users.id_user")
@@ -42,5 +41,4 @@ public class User {
 
     @Column(name="users.updated_at", nullable=true)
     private LocalDateTime updateAt;
-    
 }
