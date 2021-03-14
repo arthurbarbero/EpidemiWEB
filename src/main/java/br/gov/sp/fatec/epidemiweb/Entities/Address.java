@@ -5,10 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Entity
 @Table(name = "users.adr_address")
@@ -19,25 +17,25 @@ public class Address {
     private Integer id;
 
     @Column(name="users.st_address", nullable=false)
-    private String st_address;
+    private String address;
 
     @Column(name="users.nm_number", nullable=false)
-    private int nm_number;
+    private int number;
 
     @Column(name="users.st_complement")
-    private String st_complement;
+    private String complement;
 
     @Column(name="users.st_district", nullable=false, unique=true)
-    private String st_district;
+    private String district;
     
     @Column(name="users.st_city", nullable=false)
-    private String st_city;
+    private String city;
 
     @Column(name="users.st_state", nullable=false)
-    private String st_state;
+    private String state;
     
     @Column(name="users.st_country", nullable=false)
-    private String st_country;
+    private String country;
     
     @Column(name="users.created_at")
     private LocalDateTime createdAt;
@@ -45,9 +43,22 @@ public class Address {
     @Column(name="users.updated_at")
     private LocalDateTime updateAt;
 
-    @OneToMany(mappedBy = "address")
-    private Set<User> users;
+    public Address() {
 
+    }
+
+    public Address(String address, int number, String complement, String district, String city, String state, String country, LocalDateTime createdAt, LocalDateTime updateAt) {
+        this.address = address;
+        this.number = number;
+        this.complement = complement;
+        this.district = district;
+        this.city = city;
+        this.state = state;
+        this.country = country;
+        this.createdAt = createdAt;
+        this.updateAt = updateAt;
+    }
+    
 
     public Integer getId() {
         return this.id;
@@ -57,60 +68,60 @@ public class Address {
         this.id = id;
     }
 
-    public String getSt_address() {
-        return this.st_address;
+    public String getAddress() {
+        return this.address;
     }
 
-    public void setSt_address(String st_address) {
-        this.st_address = st_address;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public int getNm_number() {
-        return this.nm_number;
+    public int getNumber() {
+        return this.number;
     }
 
-    public void setNm_number(int nm_number) {
-        this.nm_number = nm_number;
+    public void setNumber(int number) {
+        this.number = number;
     }
 
-    public String getSt_complement() {
-        return this.st_complement;
+    public String getComplement() {
+        return this.complement;
     }
 
-    public void setSt_complement(String st_complement) {
-        this.st_complement = st_complement;
+    public void setComplement(String complement) {
+        this.complement = complement;
     }
 
-    public String getSt_district() {
-        return this.st_district;
+    public String getDistrict() {
+        return this.district;
     }
 
-    public void setSt_district(String st_district) {
-        this.st_district = st_district;
+    public void setDistrict(String district) {
+        this.district = district;
     }
 
-    public String getSt_city() {
-        return this.st_city;
+    public String getCity() {
+        return this.city;
     }
 
-    public void setSt_city(String st_city) {
-        this.st_city = st_city;
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    public String getSt_state() {
-        return this.st_state;
+    public String getState() {
+        return this.state;
     }
 
-    public void setSt_state(String st_state) {
-        this.st_state = st_state;
+    public void setState(String state) {
+        this.state = state;
     }
 
-    public String getSt_country() {
-        return this.st_country;
+    public String getCountry() {
+        return this.country;
     }
 
-    public void setSt_country(String st_country) {
-        this.st_country = st_country;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -127,14 +138,6 @@ public class Address {
 
     public void setUpdateAt(LocalDateTime updateAt) {
         this.updateAt = updateAt;
-    }
-
-    public Set<User> getUsers() {
-        return this.users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
     }
 
 }

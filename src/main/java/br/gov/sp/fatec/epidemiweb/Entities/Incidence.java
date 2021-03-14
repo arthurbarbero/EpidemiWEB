@@ -37,6 +37,14 @@ public class Incidence {
     private User user;
 
 
+    public Incidence(Integer id, LocalDateTime incidenceDate, LocalDateTime createdAt, LocalDateTime updateAt, Disease disease, User user) {
+        this.incidenceDate = incidenceDate;
+        this.createdAt = createdAt;
+        this.updateAt = updateAt;
+        this.disease = disease;
+        this.user = user;
+    }
+
 
     public Integer getId() {
         return this.id;

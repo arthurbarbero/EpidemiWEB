@@ -9,10 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -32,7 +33,7 @@ public class User {
     @Column(name="st_password", nullable=false)
     private String password;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "fk_address", referencedColumnName = "id_address")
     private Address address;
 
@@ -46,11 +47,26 @@ public class User {
     @JoinTable(name = "users.users_groups",
         joinColumns = { @JoinColumn(name = "id_user", referencedColumnName = "fk_user") },
         inverseJoinColumns = { @JoinColumn(name = "id_group", referencedColumnName = "fk_group")})
-    private Set<Groups> Groups;
+    private Set<Group> groups;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private Set<Incidence> incidences;
 
+
+    public User(String name, String email, String password, LocalDateTime createdAt, LocalDateTime updateAt) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.address = new Address();
+        this.createdAt = createdAt;
+        this.updateAt = updateAt;
+        this.groups = new HashSet<Group>();
+        this.incidences = new HashSet<Incidence>();
+    }
+
+
+    public User() {
+    }
 
 
     public Integer getId() {
@@ -109,12 +125,12 @@ public class User {
         this.updateAt = updateAt;
     }
 
-    public Set<Groups> getGroups() {
-        return this.Groups;
+    public Set<Group> getGroups() {
+        return this.groups;
     }
 
-    public void setGroups(Set<Groups> Groups) {
-        this.Groups = Groups;
+    public void setGroups(Set<Group> Groups) {
+        this.groups = Groups;
     }
 
     public Set<Incidence> getIncidences() {

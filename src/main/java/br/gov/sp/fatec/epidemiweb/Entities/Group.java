@@ -9,11 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "users.grp_groups")
-public class Groups {
+public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "users.id_group")
@@ -30,6 +31,14 @@ public class Groups {
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "groups")
     private Set<User> users;
+
+
+    public Group(String name, LocalDateTime createdAt, LocalDateTime updateAt) {
+        this.name = name;
+        this.createdAt = createdAt;
+        this.updateAt = updateAt;
+        this.users = new HashSet<User>();
+    }
 
     
     public Integer getId() {

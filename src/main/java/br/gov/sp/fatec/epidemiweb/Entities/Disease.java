@@ -41,6 +41,14 @@ public class Disease {
     private Set<Incidence> incidences;
 
 
+    public Disease(String name, LocalDateTime createdAt, LocalDateTime updateAt, Set<Symptom> symptoms, Set<Incidence> incidences) {
+        this.name = name;
+        this.createdAt = createdAt;
+        this.updateAt = updateAt;
+        this.symptoms = symptoms;
+        this.incidences = incidences;
+    }
+
 
     public Integer getId() {
         return this.id;
