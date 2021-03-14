@@ -116,3 +116,15 @@ VALUES ('PATIENT'), ('HEALTH_AGENT');
 
 INSERT INTO users.users_groups (id_user, id_group)
 VALUES (1, 1), (1, 2);
+
+INSERT INTO business.dse_disease (st_name)
+VALUES ('Test_disease');
+
+INSERT INTO business.sym_symptoms (st_name, st_description, nm_severity)
+VALUES ('Test_symptom', 'Test_description', 1);
+
+INSERT INTO business.disease_symptoms (id_disease, id_symptom) 
+VALUES (1, 1);
+
+INSERT INTO business.inc_incidence (id_disease, id_user, dt_incidence)
+VALUES (1, 1, now());

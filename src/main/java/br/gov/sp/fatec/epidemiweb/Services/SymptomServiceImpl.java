@@ -34,8 +34,7 @@ public class SymptomServiceImpl implements SymptomService {
     @Override
     public List<Symptom> getAllSymptoms() {
         try {
-            List<Symptom> allSymptoms = new ArrayList<Symptom>();
-            allSymptoms.addAll(symptomRepo.findAll());
+            List<Symptom> allSymptoms = new ArrayList<Symptom>(symptomRepo.findAll());
             if (allSymptoms.size() <= 0) {
                 throw new Exception("Não foram encontradas sintomas cadastrados");
             }
@@ -49,8 +48,7 @@ public class SymptomServiceImpl implements SymptomService {
     @Override
     public List<Symptom> getAllSymptomsByDisease(Disease disease) {
         try {
-            List<Symptom> allSymptoms = new ArrayList<Symptom>();
-            allSymptoms.addAll(disease.getSymptoms());
+            List<Symptom> allSymptoms = new ArrayList<Symptom>(disease.getSymptoms());
             if (allSymptoms.size() <= 0) {
                 throw new Exception("Não foram encontradas sintomas para a doença cadastrada");
             }

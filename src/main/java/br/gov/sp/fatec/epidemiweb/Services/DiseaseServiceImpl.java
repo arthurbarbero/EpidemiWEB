@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import br.gov.sp.fatec.epidemiweb.Entities.Disease;
 import br.gov.sp.fatec.epidemiweb.Repositories.DiseaseRepository;
+
 @Service("diseaseService")
 @Transactional
 public class DiseaseServiceImpl implements DiseaseService {
@@ -34,8 +35,7 @@ public class DiseaseServiceImpl implements DiseaseService {
     @Override
     public List<Disease> getAllDisease() {
         try {
-            List<Disease> allDiseases = new ArrayList<Disease>();
-            allDiseases.addAll(diseaseRepo.findAll());
+            List<Disease> allDiseases = new ArrayList<Disease>(diseaseRepo.findAll());
             if (allDiseases.size() <= 0) {
                 throw new Exception("Ocorreu um erro ao tentar solicitar todas as doenças");
             }

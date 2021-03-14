@@ -39,6 +39,10 @@ public class Symptom {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "symptoms")
     private Set<Disease> diseases;
 
+    public Symptom() {
+
+    }
+
     public Symptom(String name, String description, int severity) {
         this.name = name;
         this.description = description;

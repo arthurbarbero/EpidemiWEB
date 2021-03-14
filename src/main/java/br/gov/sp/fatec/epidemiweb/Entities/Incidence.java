@@ -36,12 +36,15 @@ public class Incidence {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_user")
     private User user;
+    
+    public Incidence() {
 
+    }
 
-    public Incidence(LocalDate incidenceDate, LocalDate createdAt, LocalDate updateAt, Disease disease, User user) {
+    public Incidence(LocalDate incidenceDate, Disease disease, User user) {
         this.incidenceDate = incidenceDate;
-        this.createdAt = createdAt;
-        this.updateAt = updateAt;
+        this.createdAt = LocalDate.now();
+        this.updateAt = LocalDate.now();
         this.disease = disease;
         this.user = user;
     }
