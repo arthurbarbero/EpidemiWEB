@@ -45,5 +45,20 @@ public class DiseaseServiceImpl implements DiseaseService {
             return null;
         }
     }
+
+    @Override
+    public Disease getDiseaseByName(String name) {
+        try {
+            Disease foundDisease = diseaseRepo.findByName(name);
+            if (foundDisease.getId() == null) {
+                throw new Exception("Não foi encontrada doença com o nome solicitado, tente novamente.");
+            }
+            return foundDisease;
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
     
 }

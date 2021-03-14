@@ -6,4 +6,6 @@ import br.gov.sp.fatec.epidemiweb.Entities.Disease;
 
 public interface DiseaseRepository extends JpaRepository<Disease, Integer>  {
     
+    public Disease findByName(String name);
+
 }

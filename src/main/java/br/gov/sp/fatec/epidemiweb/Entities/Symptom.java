@@ -10,6 +10,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -38,13 +39,13 @@ public class Symptom {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "symptoms")
     private Set<Disease> diseases;
 
-    public Symptom(String name, String description, int severity, LocalDate createdAt, LocalDate updateAt, Set<Disease> diseases) {
+    public Symptom(String name, String description, int severity) {
         this.name = name;
         this.description = description;
         this.severity = severity;
-        this.createdAt = createdAt;
-        this.updateAt = updateAt;
-        this.diseases = diseases;
+        this.createdAt = LocalDate.now();
+        this.updateAt = LocalDate.now();
+        this.diseases = new HashSet<Disease>();
     }
 
 
