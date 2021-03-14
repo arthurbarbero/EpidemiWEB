@@ -16,5 +16,7 @@ public interface IncidenceService {
     public List<Incidence> getAllIncidenceByUser(User user);
 
     public List<Incidence> getAllIncidenceByDisease(Disease disease);
+
+    public List<Incidence> getAllIncidenceByUserAndDisease(User user, Disease disease);
     
 }

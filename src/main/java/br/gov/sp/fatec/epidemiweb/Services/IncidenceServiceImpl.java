@@ -75,5 +75,24 @@ public class IncidenceServiceImpl implements IncidenceService{
             return null;
         }
     }
+
+    @Override
+    public List<Incidence> getAllIncidenceByUserAndDisease(User user, Disease disease) {
+        try {
+            List<Incidence> allIncidence = new ArrayList<Incidence>(
+                incidenceRepo.findAllIncidencesByUserAndDisease(
+                    user.getId(), disease.getId()
+                )
+            );
+            
+            if (allIncidence.size() <= 0) {
+                throw new Exception("Não foram encontradas incidências para a doença informada.");
+            }
+            return allIncidence;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
     
 }

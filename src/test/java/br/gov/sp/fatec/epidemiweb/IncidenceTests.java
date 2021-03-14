@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -57,6 +56,14 @@ class IncidenceTests {
     void getAllIncidenceByDiseaseTest() {
         Disease tempDisease = diseaseRepo.findById(1).get();
         List<Incidence> allIncidence = incidenceBO.getAllIncidenceByDisease(tempDisease);
+        assertNotNull(allIncidence.get(0));
+    }
+
+    @Test
+    void getAllIncidenceByUserAndDiseaseTest() {
+        Disease tempDisease = diseaseRepo.findById(1).get();
+        User tempUser = userRepo.findById(1).get();
+        List<Incidence> allIncidence = incidenceBO.getAllIncidenceByUserAndDisease(tempUser, tempDisease);
         assertNotNull(allIncidence.get(0));
     }
 
