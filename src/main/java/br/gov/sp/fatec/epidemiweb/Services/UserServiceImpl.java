@@ -1,7 +1,5 @@
 package br.gov.sp.fatec.epidemiweb.Services;
 
-import java.time.LocalDate;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +26,10 @@ public class UserServiceImpl implements UserService  {
 
     @Override
     @Transactional
-    public User saveUser(String name, String email, String password, LocalDate createdAt, LocalDate updateAt, String address, int number, String complement, String district, String city, String state, String country, String role) {
+    public User saveUser(String name, String email, String password, String address, int number, String complement, String district, String city, String state, String country, String role) {
         try {
             // Creating Address
-            Address newAddress = new Address(address, number, complement, district, city, state, country, createdAt, updateAt);
+            Address newAddress = new Address(address, number, complement, district, city, state, country);
             addressRepo.save(newAddress);
             if (newAddress.getId() == null) {
                 throw new Exception("Não foi possível salvar o endereço informado.");
@@ -44,7 +42,7 @@ public class UserServiceImpl implements UserService  {
             };
             
             // Creating User
-            User newUser = new User(name, email, password, createdAt, updateAt);
+            User newUser = new User(name, email, password);
             newUser.setAddress(newAddress);
             newUser.getGroups().add(group);
             userRepo.save(newUser);

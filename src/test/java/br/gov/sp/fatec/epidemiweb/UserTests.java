@@ -2,8 +2,6 @@ package br.gov.sp.fatec.epidemiweb;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.time.LocalDate;
-
 import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.Test;
@@ -28,8 +26,6 @@ class UserTests {
 			"name", 
 			"email", 
 			"password", 
-			LocalDate.now(), 
-			LocalDate.now(), 
 			"address", 
 			123, 
 			"complement", 
@@ -38,13 +34,13 @@ class UserTests {
 			"state", 
 			"country", 
 			"PATIENT");
-		assertNotNull(newUser);
+		assertNotNull(newUser.getId());
 	}
 
 	@Test
 	void getUserTest(){
 		User foundUser = userBO.getUser("first_user@email.com", "123456");
-		assertNotNull(foundUser);
+		assertNotNull(foundUser.getId());
 	}
 
 }

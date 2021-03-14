@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -41,15 +42,17 @@ public class Disease {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "disease")
     private Set<Incidence> incidences;
 
-
-    public Disease(String name, LocalDate createdAt, LocalDate updateAt, Set<Symptom> symptoms, Set<Incidence> incidences) {
-        this.name = name;
-        this.createdAt = createdAt;
-        this.updateAt = updateAt;
-        this.symptoms = symptoms;
-        this.incidences = incidences;
+    public Disease() {
+        
     }
 
+    public Disease(String name) {
+        this.name = name;
+        this.createdAt = LocalDate.now();
+        this.updateAt = LocalDate.now();
+        this.symptoms = new HashSet<Symptom>();
+        this.incidences = new HashSet<Incidence>();
+    }
 
     public Integer getId() {
         return this.id;

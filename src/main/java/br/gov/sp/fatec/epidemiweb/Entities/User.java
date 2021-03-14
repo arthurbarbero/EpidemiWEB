@@ -53,20 +53,18 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private Set<Incidence> incidences;
 
+    public User() {
+    }
 
-    public User(String name, String email, String password, LocalDate createdAt, LocalDate updateAt) {
+    public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.address = new Address();
-        this.createdAt = createdAt;
-        this.updateAt = updateAt;
+        this.createdAt = LocalDate.now();
+        this.updateAt = LocalDate.now();
         this.groups = new HashSet<Group>();
         this.incidences = new HashSet<Incidence>();
-    }
-
-
-    public User() {
     }
 
 

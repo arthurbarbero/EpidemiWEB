@@ -53,7 +53,7 @@ public class Address {
 
     }
 
-    public Address(String address, int number, String complement, String district, String city, String state, String country, LocalDate createdAt, LocalDate updateAt) {
+    public Address(String address, int number, String complement, String district, String city, String state, String country) {
         this.address = address;
         this.number = number;
         this.complement = complement;
@@ -61,8 +61,8 @@ public class Address {
         this.city = city;
         this.state = state;
         this.country = country;
-        this.createdAt = createdAt;
-        this.updateAt = updateAt;
+        this.createdAt = LocalDate.now();
+        this.updateAt = LocalDate.now();
     }
     
 
