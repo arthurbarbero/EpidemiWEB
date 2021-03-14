@@ -2,52 +2,58 @@ package br.gov.sp.fatec.epidemiweb.Entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
+
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "users.adr_address")
+@Table(name = "adr_address", schema = "users")
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "users.id_address")
+    @Column(name = "id_address", columnDefinition = "Serial")
     private Integer id;
 
-    @Column(name="users.st_address", nullable=false)
+    @Column(name="st_address", nullable=false)
     private String address;
 
-    @Column(name="users.nm_number", nullable=false)
+    @Column(name="nm_number", nullable=false)
     private int number;
 
-    @Column(name="users.st_complement")
+    @Column(name="st_complement")
     private String complement;
 
-    @Column(name="users.st_district", nullable=false, unique=true)
+    @Column(name="st_district", nullable=false, unique=true)
     private String district;
     
-    @Column(name="users.st_city", nullable=false)
+    @Column(name="st_city", nullable=false)
     private String city;
 
-    @Column(name="users.st_state", nullable=false)
+    @Column(name="st_state", nullable=false)
     private String state;
     
-    @Column(name="users.st_country", nullable=false)
+    @Column(name="st_country", nullable=false)
     private String country;
     
-    @Column(name="users.created_at")
-    private LocalDateTime createdAt;
+    @Column(name="created_at")
+    private LocalDate createdAt;
 
-    @Column(name="users.updated_at")
-    private LocalDateTime updateAt;
+    @Column(name="updated_at")
+    private LocalDate updateAt;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "address")
+    private User userAddress; 
 
     public Address() {
 
     }
 
-    public Address(String address, int number, String complement, String district, String city, String state, String country, LocalDateTime createdAt, LocalDateTime updateAt) {
+    public Address(String address, int number, String complement, String district, String city, String state, String country, LocalDate createdAt, LocalDate updateAt) {
         this.address = address;
         this.number = number;
         this.complement = complement;
@@ -124,20 +130,19 @@ public class Address {
         this.country = country;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return this.createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdateAt() {
+    public LocalDate getUpdateAt() {
         return this.updateAt;
     }
 
-    public void setUpdateAt(LocalDateTime updateAt) {
+    public void setUpdateAt(LocalDate updateAt) {
         this.updateAt = updateAt;
     }
-
 }

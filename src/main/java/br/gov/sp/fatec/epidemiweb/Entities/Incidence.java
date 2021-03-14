@@ -9,35 +9,36 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
+
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "business.inc_incidence")
+@Table(name = "inc_incidence", schema = "business")
 public class Incidence {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_incidence")
+    @Column(name = "id_incidence", columnDefinition = "Serial")
     private Integer id;
 
     @Column(name="dt_incidence", nullable=true)
-    private LocalDateTime incidenceDate;
+    private LocalDate incidenceDate;
 
     @Column(name="created_at", nullable=true)
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
 
     @Column(name="updated_at", nullable=true)
-    private LocalDateTime updateAt;
+    private LocalDate updateAt;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "fk_disease", referencedColumnName = "id_disease")
+    @JoinColumn(name = "id_disease")
     private Disease disease;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "fk_user", referencedColumnName = "id_user")
+    @JoinColumn(name = "id_user")
     private User user;
 
 
-    public Incidence(Integer id, LocalDateTime incidenceDate, LocalDateTime createdAt, LocalDateTime updateAt, Disease disease, User user) {
+    public Incidence(LocalDate incidenceDate, LocalDate createdAt, LocalDate updateAt, Disease disease, User user) {
         this.incidenceDate = incidenceDate;
         this.createdAt = createdAt;
         this.updateAt = updateAt;
@@ -54,27 +55,27 @@ public class Incidence {
         this.id = id;
     }
 
-    public LocalDateTime getIncidenceDate() {
+    public LocalDate getIncidenceDate() {
         return this.incidenceDate;
     }
 
-    public void setIncidenceDate(LocalDateTime incidenceDate) {
+    public void setIncidenceDate(LocalDate incidenceDate) {
         this.incidenceDate = incidenceDate;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return this.createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdateAt() {
+    public LocalDate getUpdateAt() {
         return this.updateAt;
     }
 
-    public void setUpdateAt(LocalDateTime updateAt) {
+    public void setUpdateAt(LocalDate updateAt) {
         this.updateAt = updateAt;
     }
 

@@ -8,15 +8,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
+
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
-@Table(name = "business.sym_symptoms")
+@Table(name = "sym_symptoms", schema = "business")
 public class Symptom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_symptoms")
+    @Column(name = "id_symptom", columnDefinition = "Serial")
     private Integer id;
 
     @Column(name="st_name", nullable=false)
@@ -29,15 +30,15 @@ public class Symptom {
     private int severity;
 
     @Column(name="created_at", nullable=true)
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
 
     @Column(name="updated_at", nullable=true)
-    private LocalDateTime updateAt;
+    private LocalDate updateAt;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "symptoms")
     private Set<Disease> diseases;
 
-    public Symptom(String name, String description, int severity, LocalDateTime createdAt, LocalDateTime updateAt, Set<Disease> diseases) {
+    public Symptom(String name, String description, int severity, LocalDate createdAt, LocalDate updateAt, Set<Disease> diseases) {
         this.name = name;
         this.description = description;
         this.severity = severity;
@@ -79,19 +80,19 @@ public class Symptom {
         this.severity = severity;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return this.createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdateAt() {
+    public LocalDate getUpdateAt() {
         return this.updateAt;
     }
 
-    public void setUpdateAt(LocalDateTime updateAt) {
+    public void setUpdateAt(LocalDate updateAt) {
         this.updateAt = updateAt;
     }
 

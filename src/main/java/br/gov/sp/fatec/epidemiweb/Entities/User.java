@@ -12,16 +12,17 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
+
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "users.usr_users")
+@Table(name = "usr_users", schema = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_user")
+    @Column(name = "id_user", columnDefinition = "Serial")
     private Integer id;
 
     @Column(name="st_name", nullable=false)
@@ -34,26 +35,26 @@ public class User {
     private String password;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "fk_address", referencedColumnName = "id_address")
+    @JoinColumn(name = "id_address")
     private Address address;
 
     @Column(name="created_at", nullable=true)
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
 
     @Column(name="updated_at", nullable=true)
-    private LocalDateTime updateAt;
+    private LocalDate updateAt;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "users.users_groups",
-        joinColumns = { @JoinColumn(name = "id_user", referencedColumnName = "fk_user") },
-        inverseJoinColumns = { @JoinColumn(name = "id_group", referencedColumnName = "fk_group")})
+    @JoinTable(name = "users_groups", schema = "users",
+        joinColumns = { @JoinColumn(name = "id_user") },
+        inverseJoinColumns = { @JoinColumn(name = "id_group")})
     private Set<Group> groups;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private Set<Incidence> incidences;
 
 
-    public User(String name, String email, String password, LocalDateTime createdAt, LocalDateTime updateAt) {
+    public User(String name, String email, String password, LocalDate createdAt, LocalDate updateAt) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -109,19 +110,19 @@ public class User {
         this.address = address;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return this.createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdateAt() {
+    public LocalDate getUpdateAt() {
         return this.updateAt;
     }
 
-    public void setUpdateAt(LocalDateTime updateAt) {
+    public void setUpdateAt(LocalDate updateAt) {
         this.updateAt = updateAt;
     }
 

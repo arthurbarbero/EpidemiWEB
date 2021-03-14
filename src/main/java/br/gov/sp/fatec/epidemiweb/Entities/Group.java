@@ -8,32 +8,35 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
+
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "users.grp_groups")
+@Table(name = "grp_groups", schema = "users")
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "users.id_group")
+    @Column(name = "id_group", columnDefinition = "Serial")
     private Integer id;
 
-    @Column(name="users.st_name", nullable=false)
+    @Column(name="st_name", nullable=false)
     private String name;
 
-    @Column(name="users.created_at", nullable=true)
-    private LocalDateTime createdAt;
+    @Column(name="created_at", nullable=true)
+    private LocalDate createdAt;
 
-    @Column(name="users.updated_at", nullable=true)
-    private LocalDateTime updateAt;
+    @Column(name="updated_at", nullable=true)
+    private LocalDate updateAt;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "groups")
     private Set<User> users;
 
+    public Group() {
+    }
 
-    public Group(String name, LocalDateTime createdAt, LocalDateTime updateAt) {
+    public Group(String name, LocalDate createdAt, LocalDate updateAt) {
         this.name = name;
         this.createdAt = createdAt;
         this.updateAt = updateAt;
@@ -57,19 +60,19 @@ public class Group {
         this.name = name;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return this.createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdateAt() {
+    public LocalDate getUpdateAt() {
         return this.updateAt;
     }
 
-    public void setUpdateAt(LocalDateTime updateAt) {
+    public void setUpdateAt(LocalDate updateAt) {
         this.updateAt = updateAt;
     }
 
