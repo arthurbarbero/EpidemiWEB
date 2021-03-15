@@ -1,3 +1,5 @@
 ports:
   - port: 8080
+tasks:
+  - init: psql < DDL.sql;
 image: gitpod/workspace-postgres  
