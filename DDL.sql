@@ -1,3 +1,7 @@
+CREATE DATABASE epidemiweb
+
+\c epidemiweb
+
 create schema business;
 create schema users;
 
