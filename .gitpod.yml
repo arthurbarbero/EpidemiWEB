@@ -1,5 +1,8 @@
 ports:
   - port: 8080
 tasks:
-  - init: psql < DDL.sql;
+  - init: psql;
+  - command: CREATE DATABASE epidemiweb;
+  - command: quit;
+  - command: psql -d epidemiweb < DDL.sql 
 image: gitpod/workspace-postgres  
