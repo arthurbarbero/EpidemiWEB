@@ -13,6 +13,7 @@ import br.gov.sp.fatec.epidemiweb.Repositories.GroupRepository;
 import br.gov.sp.fatec.epidemiweb.Repositories.UserRepository;
 
 @Service("userService")
+@Transactional
 public class UserServiceImpl implements UserService  {
 
     @Autowired
@@ -25,7 +26,6 @@ public class UserServiceImpl implements UserService  {
     private AddressRepository addressRepo;
 
     @Override
-    @Transactional
     public User saveUser(String name, String email, String password, String address, int number, String complement, String district, String city, String state, String country, String role) {
         try {
             // Creating Address

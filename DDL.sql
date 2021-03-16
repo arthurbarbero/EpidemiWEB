@@ -40,7 +40,7 @@ CREATE TABLE users.usr_users (
 
 CREATE TABLE users.grp_groups (
     id_group SERIAL NOT NULL,
-    st_name CHARACTER VARYING NOT NULL,
+    st_name CHARACTER VARYING NOT NULL UNIQUE,
     created_at DATE NULL DEFAULT now(),
 	updated_at DATE NULL DEFAULT now(),
     CONSTRAINT pk_id_group PRIMARY KEY(id_group)

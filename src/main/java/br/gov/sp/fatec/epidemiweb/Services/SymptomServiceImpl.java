@@ -3,6 +3,8 @@ package br.gov.sp.fatec.epidemiweb.Services;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import br.gov.sp.fatec.epidemiweb.Entities.Symptom;
 import br.gov.sp.fatec.epidemiweb.Repositories.SymptomRepository;
 
 @Service("symptomService")
+@Transactional
 public class SymptomServiceImpl implements SymptomService {
 
     @Autowired

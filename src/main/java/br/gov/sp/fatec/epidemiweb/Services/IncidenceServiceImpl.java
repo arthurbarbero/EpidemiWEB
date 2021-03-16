@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import br.gov.sp.fatec.epidemiweb.Entities.User;
 import br.gov.sp.fatec.epidemiweb.Repositories.IncidenceRepository;
 
 @Service("incidenceService")
+@Transactional
 public class IncidenceServiceImpl implements IncidenceService{
 
     @Autowired
