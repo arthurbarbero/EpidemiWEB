@@ -501,9 +501,15 @@ Para todos os métodos criamos testes simples para que o projeto em si possa ser
  - Maven instalado; (Se o dispositivo for Windows poderá usar o utilitário `mvnw` sem precisar instalar o Maven)
  
  1 - Clone o projeto em sua máquina;
+ 
  2 - Na pasta raiz, abra um terminal de acordo com seu Sistema Operacional;
+ 
  3 - Criando o DataBase;
-    3.1 - (Linux) Rode o comando `psql < echo CREATE DATABASE epidemiweb`;
-    3.2 - (Windows) Use algum utilitário de SGBD como o PGAdmin por exemplo, ou acesse o SQL Shell (psql) que é instalado junto com o Postgres, entre com suas credenciais de localhost e rode os comandos `CREATE DATABASE epidemiweb`    
+ 
+   3.1 - (Linux) Rode o comando `psql < echo CREATE DATABASE epidemiweb`;
+    
+   3.2 - (Windows) Use algum utilitário de SGBD como o PGAdmin por exemplo, ou acesse o SQL Shell (psql) que é instalado junto com o Postgres, entre com suas credenciais de localhost e rode os comandos `CREATE DATABASE epidemiweb`;
+    
  4 - Rode o comando `mvn clean install` para instalar as dependências Maven; Caso não tenha instalado o Maven em sua máquina, rode o comando `mvnw clean install`
+ 
  5 - Rode o comando `mvn clean test` para ver o resultado dos testes.
