@@ -13,7 +13,7 @@ O projeto se utiliza como base as prerrogativas de uma aplicação Java com o Fr
 
 
 <details>
-  <summary>Clique para ver o arquivo de dependências pom.xml</summary>
+  <summary><strong>Clique para ver o arquivo de dependências pom.xml</strong></summary>
   
   [../pom.xml](https://github.com/arthurbarbero/EpidemiWEB/blob/main/pom.xml)
   
@@ -77,7 +77,7 @@ A criação do diagrama acima foi realizada em cima das bases de normalização 
 - "ManyToMany/ManyToMany" (usr_users < users_groups > grp_groups; dse_disease < disease_symptoms > sym_symptoms)
 
 <details>
-  <summary>Veja a modelagem realizada em linguagem SQL</summary>
+  <summary><strong>Veja a modelagem realizada em linguagem SQL</strong></summary>
   
   [../DDL.sql](https://github.com/arthurbarbero/EpidemiWEB/blob/main/DDL.sql)
   
@@ -193,7 +193,7 @@ A criação do diagrama acima foi realizada em cima das bases de normalização 
 Após a criação de toda modelagem, realizamos o mapeamento e criação das entidades Data JPA, uma tradução das tabelas em classe que podem ser implementadas em interfaces da biblioteca Spring Data JPA
 
 <details>
-  <summary>Confira este exemplo de Entidade</summary>
+  <summary><strong>Confira este exemplo de Entidade</strong></summary>
   
   [../src/main/java/br/gov/sp/fatec/epidemiweb/Entities/Disease.java](https://github.com/arthurbarbero/EpidemiWEB/blob/main/src/main/java/br/gov/sp/fatec/epidemiweb/Entities/Disease.java)
 
@@ -268,7 +268,7 @@ Com as entidades criadas, para cada uma criamos a forma de acesso aos métodos q
 Os repositórios estendem suas funcionalidades aos métodos intrínsecos da biblioteca *JpaRepository*, podendo ser realizado os mais comuns métodos de acesso ao banco como *findAll(); findOne(); findById(); save();* e etc. Mas também podemos criar as nossas próprias pesquisas customizadas, podendo serem feitas de duas maneiras:
 
 <details>
-  <summary>Pesquisa pelo nome do método</summary>
+  <summary><strong>Pesquisa pelo nome do método</strong></summary>
   
   [../src/main/java/br/gov/sp/fatec/epidemiweb/Repositories/UserRepository.java](https://github.com/arthurbarbero/EpidemiWEB/blob/main/src/main/java/br/gov/sp/fatec/epidemiweb/Repositories/UserRepository.java)
   
@@ -284,7 +284,7 @@ Os repositórios estendem suas funcionalidades aos métodos intrínsecos da bibl
  ou
  
  <details>
-  <summary>Query em JPQL</summary>
+  <summary><strong>Query em JPQL</strong></summary>
   
   [../src/main/java/br/gov/sp/fatec/epidemiweb/Repositories/IncidenceRepository.java](https://github.com/arthurbarbero/EpidemiWEB/blob/main/src/main/java/br/gov/sp/fatec/epidemiweb/Repositories/IncidenceRepository.java)
   
@@ -305,7 +305,7 @@ Muitas destas regras serão criadas de acordo com o andamento do projeto, porém
 
 
 <details>
-  <summary>Métodos de criação e busca das incidências de doênças</summary>
+  <summary><strong>Métodos de criação e busca das incidências de doênças</strong></summary>
   
   [../src/main/java/br/gov/sp/fatec/epidemiweb/Services/IncidenceServiceImpl.java](https://github.com/arthurbarbero/EpidemiWEB/blob/main/src/main/java/br/gov/sp/fatec/epidemiweb/Services/IncidenceServiceImpl.java)
   
@@ -417,7 +417,7 @@ Para todos os métodos criamos testes simples para que o projeto em si possa ser
 
 
 <details>
-  <summary>Exemplo de teste</summary>
+  <summary><strong>Exemplo de teste</strong></summary>
   
   [../src/test/java/br/gov/sp/fatec/epidemiweb/IncidenceTests.java](https://github.com/arthurbarbero/EpidemiWEB/blob/main/src/test/java/br/gov/sp/fatec/epidemiweb/IncidenceTests.java)
   
