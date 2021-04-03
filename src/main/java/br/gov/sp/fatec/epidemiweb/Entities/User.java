@@ -13,6 +13,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.gov.sp.fatec.epidemiweb.Controller.View;
+
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,25 +29,31 @@ public class User {
     @Column(name = "id_user", columnDefinition = "Serial")
     private Integer id;
 
+    @JsonView({View.User.class, View.DiseaseIncidences.class, View.IncidenceComplete.class})
     @Column(name="st_name", nullable=false)
     private String name;
 
+    @JsonView({View.User.class, View.DiseaseIncidences.class, View.IncidenceComplete.class})
     @Column(name="st_email", nullable=false, unique=true)
     private String email;
     
     @Column(name="st_password", nullable=false)
     private String password;
 
+    @JsonView(View.User.class)
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_address")
     private Address address;
 
+    @JsonView(View.User.class)
     @Column(name="created_at", nullable=true)
     private LocalDate createdAt;
 
+    @JsonView(View.User.class)
     @Column(name="updated_at", nullable=true)
     private LocalDate updateAt;
 
+    @JsonView(View.User.class)
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_groups", schema = "users",
         joinColumns = { @JoinColumn(name = "id_user") },

@@ -13,10 +13,16 @@ public interface IncidenceService {
 
     public List<Incidence> getAllIncidences();
 
+    public Incidence getById(int id);
+
     public List<Incidence> getAllIncidenceByUser(User user);
 
     public List<Incidence> getAllIncidenceByDisease(Disease disease);
 
     public List<Incidence> getAllIncidenceByUserAndDisease(User user, Disease disease);
+
+    public Incidence update(Incidence newIncidence);
+
+    public void deleteById(Incidence incidence);
     
 }

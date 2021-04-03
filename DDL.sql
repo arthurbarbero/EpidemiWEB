@@ -50,9 +50,13 @@ CREATE TABLE users.users_groups (
     id_user INTEGER NOT NULL,
     id_group INTEGER NOT NULL,
     CONSTRAINT fk_users_groups_user FOREIGN KEY (id_user)
-        REFERENCES users.usr_users (id_user),
+        REFERENCES users.usr_users (id_user)
+            ON DELETE CASCADE 
+            ON UPDATE CASCADE,
     CONSTRAINT fk_users_groups_groups FOREIGN KEY (id_group)
         REFERENCES users.grp_groups (id_group)
+            ON DELETE CASCADE 
+            ON UPDATE CASCADE
 );
 
 -- Business TABLES
@@ -79,9 +83,13 @@ CREATE TABLE business.disease_symptoms (
     id_disease Integer NOT NULL,
     id_symptom Integer NOT NULL,
     CONSTRAINT fk_disease_symptoms_disease FOREIGN KEY (id_disease)
-        REFERENCES business.dse_disease (id_disease),
+        REFERENCES business.dse_disease (id_disease)
+            ON DELETE CASCADE 
+            ON UPDATE CASCADE,
     CONSTRAINT fk_disease_symptoms_symptoms FOREIGN KEY (id_symptom)
         REFERENCES business.sym_symptoms (id_symptom)
+            ON DELETE CASCADE 
+            ON UPDATE CASCADE
 );
 
 CREATE TABLE business.inc_incidence (
@@ -93,9 +101,13 @@ CREATE TABLE business.inc_incidence (
 	updated_at DATE NOT NULL DEFAULT now(),
     CONSTRAINT pk_id_incidence PRIMARY KEY (id_incidence),
     CONSTRAINT fk_inc_incidence_disease FOREIGN KEY (id_disease)
-        REFERENCES business.dse_disease (id_disease),
+        REFERENCES business.dse_disease (id_disease)
+            ON DELETE CASCADE 
+            ON UPDATE CASCADE,
     CONSTRAINT fk_inc_incidence_user FOREIGN KEY (id_user)
         REFERENCES users.usr_users (id_user)
+            ON DELETE CASCADE 
+            ON UPDATE CASCADE
 );
 
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA business TO epidemiuser;
