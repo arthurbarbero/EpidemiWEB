@@ -73,6 +73,7 @@ Conforme cronograma, os objetivos serão segregados pelas áreas de conhecimento
 - Formatar os resultados para JSON;
 - Habilitar tratamento de CORS.
 
+[Segunda Entrega](https://github.com/arthurbarbero/EpidemiWEB/blob/main/Entrega%202/entrega2.md)
 
 ### Segurança JWT 11/05:
 - Inclusão de autenticação via JWT para as rotas;
