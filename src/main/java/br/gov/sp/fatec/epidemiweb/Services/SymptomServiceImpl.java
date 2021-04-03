@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import br.gov.sp.fatec.epidemiweb.Entities.Disease;
 import br.gov.sp.fatec.epidemiweb.Entities.Symptom;
+import br.gov.sp.fatec.epidemiweb.Exceptions.NotFoundException;
 import br.gov.sp.fatec.epidemiweb.Repositories.SymptomRepository;
 
 @Service("symptomService")
@@ -59,6 +60,27 @@ public class SymptomServiceImpl implements SymptomService {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
+        }
+    }
+
+    @Override
+    public Symptom getById(int id) {
+        Symptom foundSymptom = symptomRepo.findById(id).get();
+        if (foundSymptom == null) {
+            throw new NotFoundException("Não foi encontrado o sintoma para o id informado.");
+        }
+        return foundSymptom;
+    }
+
+    @Override
+    public void deleteById(Symptom symptom) {
+        try{
+            if (symptom == null) {
+                throw new NotFoundException("Não foi encontrado o sintoma para o id informado.");
+            }
+            symptomRepo.deleteById(symptom.getId());
+        } catch (Exception e) {
+            throw new NotFoundException(e.getMessage());
         }
     }
     

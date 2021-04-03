@@ -9,6 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.gov.sp.fatec.epidemiweb.Controller.View;
+
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,15 +25,19 @@ public class Group {
     @Column(name = "id_group", columnDefinition = "Serial")
     private Integer id;
 
+    @JsonView({View.User.class, View.Group.class})
     @Column(name="st_name", nullable=false)
     private String name;
 
+    @JsonView({View.User.class, View.Group.class})
     @Column(name="created_at", nullable=true)
     private LocalDate createdAt;
 
+    @JsonView({View.User.class, View.Group.class})
     @Column(name="updated_at", nullable=true)
     private LocalDate updateAt;
 
+    @JsonView(View.Group.class)
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "groups")
     private Set<User> users;
 

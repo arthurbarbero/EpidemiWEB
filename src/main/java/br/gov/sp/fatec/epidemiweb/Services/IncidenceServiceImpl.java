@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import br.gov.sp.fatec.epidemiweb.Entities.Disease;
 import br.gov.sp.fatec.epidemiweb.Entities.Incidence;
 import br.gov.sp.fatec.epidemiweb.Entities.User;
+import br.gov.sp.fatec.epidemiweb.Exceptions.NotFoundException;
 import br.gov.sp.fatec.epidemiweb.Repositories.IncidenceRepository;
 
 @Service("incidenceService")
@@ -96,6 +97,15 @@ public class IncidenceServiceImpl implements IncidenceService{
             System.out.println(e.getMessage());
             return null;
         }
+    }
+
+    @Override
+    public Incidence getById(int id) {
+        Incidence foundIncidence = incidenceRepo.findById(id).get();
+        if (foundIncidence == null) {
+            throw new NotFoundException("Não foram encontradas incidências para o id informado.");
+        }
+        return foundIncidence;
     }
     
 }

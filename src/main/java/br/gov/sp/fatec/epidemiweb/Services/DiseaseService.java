@@ -10,6 +10,8 @@ public interface DiseaseService {
 
     public List<Disease> getAllDisease();
 
+    public Disease getById(int id);
+
     public Disease getDiseaseByName(String name);
 
 }

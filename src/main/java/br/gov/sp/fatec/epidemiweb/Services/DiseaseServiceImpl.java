@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.gov.sp.fatec.epidemiweb.Entities.Disease;
+import br.gov.sp.fatec.epidemiweb.Exceptions.NotFoundException;
 import br.gov.sp.fatec.epidemiweb.Repositories.DiseaseRepository;
 
 @Service("diseaseService")
@@ -37,12 +38,11 @@ public class DiseaseServiceImpl implements DiseaseService {
         try {
             List<Disease> allDiseases = new ArrayList<Disease>(diseaseRepo.findAll());
             if (allDiseases.size() <= 0) {
-                throw new Exception("Ocorreu um erro ao tentar solicitar todas as doenças");
+                throw new NotFoundException("Ocorreu um erro ao tentar solicitar todas as doenças");
             }
             return allDiseases;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return null;
+        } catch (NotFoundException e) {
+            throw e;
         }
     }
 
@@ -51,14 +51,22 @@ public class DiseaseServiceImpl implements DiseaseService {
         try {
             Disease foundDisease = diseaseRepo.findByName(name);
             if (foundDisease.getId() == null) {
-                throw new Exception("Não foi encontrada doença com o nome solicitado, tente novamente.");
+                throw new NotFoundException("Não foi encontrada doença com o nome solicitado, tente novamente.");
             }
             return foundDisease;
             
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return null;
+        } catch (NotFoundException e) {
+            throw e;
         }
+    }
+
+    @Override
+    public Disease getById(int id) {
+        Disease foundDisease = diseaseRepo.findById(id).get();
+        if (foundDisease == null) {
+            throw new NotFoundException("Não foi encontrada doença com o id solicitado");
+        }
+        return foundDisease;
     }
     
 }

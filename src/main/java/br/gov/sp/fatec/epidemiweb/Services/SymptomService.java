@@ -9,6 +9,10 @@ public interface SymptomService {
     
     public Symptom saveSymptom(String name, String description, int severity);
 
+    public Symptom getById(int id);
+
+    public void deleteById(Symptom symptom);
+
     public List<Symptom> getAllSymptoms();
 
     public List<Symptom> getAllSymptomsByDisease(Disease disease);

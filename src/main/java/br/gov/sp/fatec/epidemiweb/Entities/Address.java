@@ -9,6 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.gov.sp.fatec.epidemiweb.Controller.View;
+
 import java.time.LocalDate;
 
 @Entity
@@ -19,24 +23,31 @@ public class Address {
     @Column(name = "id_address", columnDefinition = "Serial")
     private Integer id;
 
+    @JsonView(View.User.class)
     @Column(name="st_address", nullable=false)
     private String address;
 
+    @JsonView(View.User.class)
     @Column(name="nm_number", nullable=false)
     private int number;
 
+    @JsonView(View.User.class)
     @Column(name="st_complement")
     private String complement;
 
+    @JsonView(View.User.class)
     @Column(name="st_district", nullable=false, unique=true)
     private String district;
     
+    @JsonView(View.User.class)
     @Column(name="st_city", nullable=false)
     private String city;
 
+    @JsonView(View.User.class)
     @Column(name="st_state", nullable=false)
     private String state;
     
+    @JsonView(View.User.class)
     @Column(name="st_country", nullable=false)
     private String country;
     
