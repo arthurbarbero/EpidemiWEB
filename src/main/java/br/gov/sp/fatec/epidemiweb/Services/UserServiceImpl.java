@@ -79,6 +79,7 @@ public class UserServiceImpl implements UserService  {
     @Override
     public User update(User newUser) {
         User oldUser = userRepo.findById(newUser.getId()).get();
+        Address oldAddress = addressRepo.findById(newUser.getAddress().getId()).get();
         if (oldUser == null) {
             throw new NotFoundException("Não foi encontrado o usuário para o id informado.");
         }
@@ -87,6 +88,17 @@ public class UserServiceImpl implements UserService  {
             oldUser.setEmail(newUser.getEmail());
             oldUser.setPassword(newUser.getPassword());
             oldUser.setUpdateAt(LocalDate.now());
+            if (newUser.getAddress() != null) {
+                oldAddress.setAddress(newUser.getAddress().getAddress());
+                oldAddress.setNumber(newUser.getAddress().getNumber());
+                oldAddress.setComplement(newUser.getAddress().getComplement());
+                oldAddress.setDistrict(newUser.getAddress().getDistrict());
+                oldAddress.setCity(newUser.getAddress().getCity());
+                oldAddress.setState(newUser.getAddress().getState());
+                oldAddress.setCountry(newUser.getAddress().getCountry());
+                oldAddress = addressRepo.save(oldAddress);
+            }
+            oldUser.setAddress(oldAddress);
             return userRepo.save(oldUser);
         }
         throw new BadRequestException("Por favor verifique se os campos estão preenchidos corretamente.");
