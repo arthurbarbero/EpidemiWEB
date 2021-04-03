@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import br.gov.sp.fatec.epidemiweb.Entities.Disease;
 import br.gov.sp.fatec.epidemiweb.Entities.Incidence;
 import br.gov.sp.fatec.epidemiweb.Entities.User;
+import br.gov.sp.fatec.epidemiweb.Exceptions.BadRequestException;
 import br.gov.sp.fatec.epidemiweb.Exceptions.NotFoundException;
 import br.gov.sp.fatec.epidemiweb.Repositories.IncidenceRepository;
 
@@ -106,6 +107,35 @@ public class IncidenceServiceImpl implements IncidenceService{
             throw new NotFoundException("Não foram encontradas incidências para o id informado.");
         }
         return foundIncidence;
+    }
+
+    @Override
+    public Incidence update(Incidence newIncidence) {
+        Incidence oldIncidence = incidenceRepo.findById(newIncidence.getId()).get();
+        
+        if (oldIncidence == null) {
+            throw new NotFoundException("Não foi encontrado a incidencia para o id informado.");
+        }
+        if (newIncidence.getUser() != null && newIncidence.getDisease() != null && newIncidence.getIncidenceDate() != null) {
+            oldIncidence.setUser(newIncidence.getUser());
+            oldIncidence.setDisease(newIncidence.getDisease());
+            oldIncidence.setIncidenceDate(newIncidence.getIncidenceDate());
+            oldIncidence.setUpdateAt(LocalDate.now());
+            return incidenceRepo.save(oldIncidence);
+        }
+        throw new BadRequestException("Por favor verifique se os campos estão preenchidos corretamente.");
+    }
+
+    @Override
+    public void deleteById(Incidence incidence) {
+        try{
+            if (incidence == null) {
+                throw new NotFoundException("Não foi encontrado a incidência para o id informado.");
+            }
+            incidenceRepo.deleteById(incidence.getId());
+        } catch (Exception e) {
+            throw new NotFoundException(e.getMessage());
+        }
     }
     
 }

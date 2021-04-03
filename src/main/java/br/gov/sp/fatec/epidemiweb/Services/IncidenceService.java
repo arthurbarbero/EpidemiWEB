@@ -20,5 +20,9 @@ public interface IncidenceService {
     public List<Incidence> getAllIncidenceByDisease(Disease disease);
 
     public List<Incidence> getAllIncidenceByUserAndDisease(User user, Disease disease);
+
+    public Incidence update(Incidence newIncidence);
+
+    public void deleteById(Incidence incidence);
     
 }

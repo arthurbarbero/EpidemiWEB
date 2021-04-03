@@ -14,4 +14,8 @@ public interface DiseaseService {
 
     public Disease getDiseaseByName(String name);
 
+    public Disease update(Disease newDisease);
+
+    public void deleteById(Disease disease);
+
 }

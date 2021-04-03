@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -61,6 +62,12 @@ public class SymptomController {
         );
 
         return new ResponseEntity<Symptom>(newSymptom, headers, HttpStatus.CREATED);
+    }
+
+    @PutMapping(value = "/update")
+    public ResponseEntity<Symptom> UpdateSymptom(@RequestBody Symptom symptom) {
+        Symptom updatedSymptom = symptomService.update(symptom);
+        return new ResponseEntity<Symptom>(updatedSymptom, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/deleteById/{symptomId}")

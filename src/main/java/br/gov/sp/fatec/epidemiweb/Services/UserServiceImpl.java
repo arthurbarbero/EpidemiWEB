@@ -1,5 +1,6 @@
 package br.gov.sp.fatec.epidemiweb.Services;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -11,6 +12,7 @@ import br.gov.sp.fatec.epidemiweb.Entities.Address;
 import br.gov.sp.fatec.epidemiweb.Entities.Group;
 import br.gov.sp.fatec.epidemiweb.Entities.User;
 import br.gov.sp.fatec.epidemiweb.Exceptions.NotFoundException;
+import br.gov.sp.fatec.epidemiweb.Exceptions.BadRequestException;
 import br.gov.sp.fatec.epidemiweb.Repositories.AddressRepository;
 import br.gov.sp.fatec.epidemiweb.Repositories.GroupRepository;
 import br.gov.sp.fatec.epidemiweb.Repositories.UserRepository;
@@ -73,4 +75,33 @@ public class UserServiceImpl implements UserService  {
     public List<User> getAllUsers() {
         return userRepo.findAll();
     }
+
+    @Override
+    public User update(User newUser) {
+        User oldUser = userRepo.findById(newUser.getId()).get();
+        if (oldUser == null) {
+            throw new NotFoundException("Não foi encontrado o usuário para o id informado.");
+        }
+        if (newUser.getName() != null && newUser.getEmail() != null && newUser.getPassword() != null) {
+            oldUser.setName(newUser.getName());
+            oldUser.setEmail(newUser.getEmail());
+            oldUser.setPassword(newUser.getPassword());
+            oldUser.setUpdateAt(LocalDate.now());
+            return userRepo.save(oldUser);
+        }
+        throw new BadRequestException("Por favor verifique se os campos estão preenchidos corretamente.");
+    }
+
+    @Override
+    public void deleteById(User user) {
+        try{
+            if (user == null) {
+                throw new NotFoundException("Não foi encontrado o usuário para o id informado.");
+            }
+            userRepo.deleteById(user.getId());
+        } catch (Exception e) {
+            throw new NotFoundException(e.getMessage());
+        }
+    }
+
 }

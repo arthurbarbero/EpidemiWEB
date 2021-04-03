@@ -1,5 +1,6 @@
 package br.gov.sp.fatec.epidemiweb.Services;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.gov.sp.fatec.epidemiweb.Entities.Disease;
+import br.gov.sp.fatec.epidemiweb.Exceptions.BadRequestException;
 import br.gov.sp.fatec.epidemiweb.Exceptions.NotFoundException;
 import br.gov.sp.fatec.epidemiweb.Repositories.DiseaseRepository;
 
@@ -67,6 +69,32 @@ public class DiseaseServiceImpl implements DiseaseService {
             throw new NotFoundException("Não foi encontrada doença com o id solicitado");
         }
         return foundDisease;
+    }
+
+    @Override
+    public Disease update(Disease newDisease) {
+        Disease oldDisease = diseaseRepo.findById(newDisease.getId()).get();
+        if (oldDisease == null) {
+            throw new NotFoundException("Não foi encontrado o doença para o id informado.");
+        }
+        if (newDisease.getName() != null) {
+            oldDisease.setName(newDisease.getName());
+            oldDisease.setUpdateAt(LocalDate.now());
+            return diseaseRepo.save(oldDisease);
+        }
+        throw new BadRequestException("Por favor verifique se os campos estão preenchidos corretamente.");
+    }
+
+    @Override
+    public void deleteById(Disease disease) {
+        try{
+            if (disease == null) {
+                throw new NotFoundException("Não foi encontrado o sintoma para o id informado.");
+            }
+            diseaseRepo.deleteById(disease.getId());
+        } catch (Exception e) {
+            throw new NotFoundException(e.getMessage());
+        }
     }
     
 }

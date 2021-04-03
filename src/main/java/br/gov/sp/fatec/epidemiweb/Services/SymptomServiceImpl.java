@@ -1,5 +1,6 @@
 package br.gov.sp.fatec.epidemiweb.Services;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import br.gov.sp.fatec.epidemiweb.Entities.Disease;
 import br.gov.sp.fatec.epidemiweb.Entities.Symptom;
+import br.gov.sp.fatec.epidemiweb.Exceptions.BadRequestException;
 import br.gov.sp.fatec.epidemiweb.Exceptions.NotFoundException;
 import br.gov.sp.fatec.epidemiweb.Repositories.SymptomRepository;
 
@@ -82,6 +84,24 @@ public class SymptomServiceImpl implements SymptomService {
         } catch (Exception e) {
             throw new NotFoundException(e.getMessage());
         }
+    }
+
+    @Override
+    public Symptom update(Symptom newSymptom) {
+        Symptom oldSymptom = symptomRepo.findById(newSymptom.getId()).get();
+        if (oldSymptom == null) {
+            throw new NotFoundException("Não foi encontrado o sintoma para o id informado.");
+        }
+        if (newSymptom.getName() != null &&
+            newSymptom.getDescription() != null &&
+            newSymptom.getSeverity() != 0) {
+                oldSymptom.setName(newSymptom.getName());
+                oldSymptom.setDescription(newSymptom.getDescription());
+                oldSymptom.setSeverity(newSymptom.getSeverity());
+                oldSymptom.setUpdateAt(LocalDate.now());
+                return symptomRepo.save(oldSymptom);
+        }
+        throw new BadRequestException("Por favor verifique se os campos estão preenchidos corretamente.");
     }
     
 }

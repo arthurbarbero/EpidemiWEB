@@ -7,12 +7,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -35,11 +36,9 @@ public class UserController {
     }
 
     @JsonView(View.User.class)
-    @GetMapping(value = "/login")
-    public User GetUserByEmailAndPassword(
-        @RequestParam(value = "email") String email,
-        @RequestParam(value = "password") String password) {
-        return userService.getUser(email, password);
+    @PostMapping(value = "/login")
+    public User GetUserByEmailAndPassword(@RequestBody User user) {
+        return userService.getUser(user.getEmail(), user.getPassword());
     }
 
     @JsonView(View.User.class)
@@ -61,5 +60,18 @@ public class UserController {
         );
 
         return new ResponseEntity<User>(newUser, header, HttpStatus.CREATED);
+    }
+
+    @JsonView(View.User.class)
+    @PutMapping(value = "/update")
+    public ResponseEntity<User> UpdateDisease(@RequestBody User user) {
+        User updatedUser = userService.update(user);
+        return new ResponseEntity<User>(updatedUser, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/deleteById/{userId}")
+    public ResponseEntity<String> DeleteSymptomById(@PathVariable(value = "userId") User user) {
+        userService.deleteById(user);
+        return new ResponseEntity<String>("Ok", HttpStatus.OK);
     }
 }

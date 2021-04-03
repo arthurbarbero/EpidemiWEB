@@ -12,6 +12,10 @@ public interface UserService {
 
     public User getUserById(int id);
 
-    public List<User> getAllUsers(); 
+    public List<User> getAllUsers();
+
+    public User update(User newUser);
+
+    public void deleteById(User user); 
 
 }
