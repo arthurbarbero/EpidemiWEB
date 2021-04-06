@@ -1,5 +1,6 @@
 package br.gov.sp.fatec.epidemiweb.Services;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.gov.sp.fatec.epidemiweb.Entities.Disease;
+import br.gov.sp.fatec.epidemiweb.Exceptions.BadRequestException;
+import br.gov.sp.fatec.epidemiweb.Exceptions.NotFoundException;
 import br.gov.sp.fatec.epidemiweb.Repositories.DiseaseRepository;
 
 @Service("diseaseService")
@@ -37,12 +40,11 @@ public class DiseaseServiceImpl implements DiseaseService {
         try {
             List<Disease> allDiseases = new ArrayList<Disease>(diseaseRepo.findAll());
             if (allDiseases.size() <= 0) {
-                throw new Exception("Ocorreu um erro ao tentar solicitar todas as doenças");
+                throw new NotFoundException("Ocorreu um erro ao tentar solicitar todas as doenças");
             }
             return allDiseases;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return null;
+        } catch (NotFoundException e) {
+            throw e;
         }
     }
 
@@ -51,13 +53,47 @@ public class DiseaseServiceImpl implements DiseaseService {
         try {
             Disease foundDisease = diseaseRepo.findByName(name);
             if (foundDisease.getId() == null) {
-                throw new Exception("Não foi encontrada doença com o nome solicitado, tente novamente.");
+                throw new NotFoundException("Não foi encontrada doença com o nome solicitado, tente novamente.");
             }
             return foundDisease;
             
+        } catch (NotFoundException e) {
+            throw e;
+        }
+    }
+
+    @Override
+    public Disease getById(int id) {
+        Disease foundDisease = diseaseRepo.findById(id).get();
+        if (foundDisease == null) {
+            throw new NotFoundException("Não foi encontrada doença com o id solicitado");
+        }
+        return foundDisease;
+    }
+
+    @Override
+    public Disease update(Disease newDisease) {
+        Disease oldDisease = diseaseRepo.findById(newDisease.getId()).get();
+        if (oldDisease == null) {
+            throw new NotFoundException("Não foi encontrado o doença para o id informado.");
+        }
+        if (newDisease.getName() != null) {
+            oldDisease.setName(newDisease.getName());
+            oldDisease.setUpdateAt(LocalDate.now());
+            return diseaseRepo.save(oldDisease);
+        }
+        throw new BadRequestException("Por favor verifique se os campos estão preenchidos corretamente.");
+    }
+
+    @Override
+    public void deleteById(Disease disease) {
+        try{
+            if (disease == null) {
+                throw new NotFoundException("Não foi encontrado o sintoma para o id informado.");
+            }
+            diseaseRepo.deleteById(disease.getId());
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return null;
+            throw new NotFoundException(e.getMessage());
         }
     }
     

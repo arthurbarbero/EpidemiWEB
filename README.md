@@ -65,12 +65,15 @@ Conforme cronograma, os objetivos serão segregados pelas áreas de conhecimento
 - Modelagem e mapeamento Spring Data JPA;
 - Criação dos principais métodos.
 
+[Primeira Entrega](https://github.com/arthurbarbero/EpidemiWEB/blob/main/Entrega%201/entrega1.md)
+
 
 ### REST 13/04:
 - Criação de Controllers e suas rotas para acesso aos métodos (GET, POST, PUT, DELETE);
 - Formatar os resultados para JSON;
 - Habilitar tratamento de CORS.
 
+[Segunda Entrega](https://github.com/arthurbarbero/EpidemiWEB/blob/main/Entrega%202/entrega2.md)
 
 ### Segurança JWT 11/05:
 - Inclusão de autenticação via JWT para as rotas;

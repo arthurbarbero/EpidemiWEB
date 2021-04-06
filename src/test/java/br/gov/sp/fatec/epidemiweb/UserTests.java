@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 
+import br.gov.sp.fatec.epidemiweb.Entities.Address;
 import br.gov.sp.fatec.epidemiweb.Entities.User;
 import br.gov.sp.fatec.epidemiweb.Services.UserService;
 
@@ -22,17 +23,20 @@ class UserTests {
 
 	@Test
 	void saveUserTest(){
+
+		Address newAddress = new Address("address", 
+		123, 
+		"complement", 
+		"district", 
+		"city", 
+		"state", 
+		"country");
+
 		User newUser = userBO.saveUser(
 			"name", 
 			"email", 
 			"password", 
-			"address", 
-			123, 
-			"complement", 
-			"district", 
-			"city", 
-			"state", 
-			"country", 
+			newAddress,
 			"PATIENT");
 		assertNotNull(newUser.getId());
 	}

@@ -12,6 +12,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.gov.sp.fatec.epidemiweb.Controller.View;
+
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,11 +23,14 @@ import java.util.Set;
 @Entity
 @Table(name = "dse_disease", schema = "business")
 public class Disease {
+
+    @JsonView({View.DiseaseResume.class, View.IncidenceComplete.class, View.SymptomCompleted.class})
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_disease", columnDefinition = "Serial")
     private Integer id;
 
+    @JsonView({View.DiseaseResume.class, View.IncidenceComplete.class, View.SymptomCompleted.class})
     @Column(name="st_name", nullable=false)
     private String name;
 
@@ -33,12 +40,14 @@ public class Disease {
     @Column(name="updated_at", nullable=true)
     private LocalDate updateAt;
 
+    @JsonView({View.DiseaseSymptons.class, View.IncidenceComplete.class})
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="disease_symptoms", schema = "business",
         joinColumns = { @JoinColumn(name="id_disease") },
         inverseJoinColumns = { @JoinColumn(name="id_symptom") })
     private Set<Symptom> symptoms;
 
+    @JsonView(View.DiseaseIncidences.class)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "disease")
     private Set<Incidence> incidences;
 

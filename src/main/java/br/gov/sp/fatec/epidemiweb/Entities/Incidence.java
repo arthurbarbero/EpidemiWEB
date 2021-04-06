@@ -10,16 +10,23 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.gov.sp.fatec.epidemiweb.Controller.View;
+
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "inc_incidence", schema = "business")
 public class Incidence {
+
+    @JsonView({View.DiseaseIncidences.class, View.IncidenceResumed.class})
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_incidence", columnDefinition = "Serial")
     private Integer id;
 
+    @JsonView({View.DiseaseIncidences.class, View.IncidenceResumed.class})
     @Column(name="dt_incidence", nullable=true)
     private LocalDate incidenceDate;
 
@@ -29,10 +36,12 @@ public class Incidence {
     @Column(name="updated_at", nullable=true)
     private LocalDate updateAt;
 
+    @JsonView(View.IncidenceComplete.class)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_disease")
     private Disease disease;
 
+    @JsonView({View.DiseaseIncidences.class, View.IncidenceComplete.class})
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_user")
     private User user;
