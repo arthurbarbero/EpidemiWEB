@@ -83,6 +83,7 @@ public class IncidenceController {
         return incidenceService.getAllIncidenceByUserAndDisease(user, disease);
     }
 
+    @JsonView(View.IncidenceResumed.class)
     @PutMapping(value = "/update")
     public ResponseEntity<Incidence> UpdateIncidence(@RequestBody Incidence incidence) {
         Incidence updatedIncidence = incidenceService.update(incidence);
