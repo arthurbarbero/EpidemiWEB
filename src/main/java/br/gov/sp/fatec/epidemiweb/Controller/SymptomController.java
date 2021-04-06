@@ -64,6 +64,7 @@ public class SymptomController {
         return new ResponseEntity<Symptom>(newSymptom, headers, HttpStatus.CREATED);
     }
 
+    @JsonView(View.SymptomResumed.class)
     @PutMapping(value = "/update")
     public ResponseEntity<Symptom> UpdateSymptom(@RequestBody Symptom symptom) {
         Symptom updatedSymptom = symptomService.update(symptom);
