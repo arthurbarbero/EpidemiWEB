@@ -3,18 +3,18 @@ package br.gov.sp.fatec.epidemiweb.Entities.RequestModel;
 import java.time.LocalDate;
 
 import br.gov.sp.fatec.epidemiweb.Entities.Disease;
-import br.gov.sp.fatec.epidemiweb.Entities.User;
+import br.gov.sp.fatec.epidemiweb.Entities.Users;
 
 public class IncidenceRequest {
     private Disease disease;
-    private User user;
+    private Users user;
     private LocalDate incidenceDate;
 
     public IncidenceRequest() {
 
     }
 
-    public IncidenceRequest(Disease disease, User user) {
+    public IncidenceRequest(Disease disease, Users user) {
         this.disease = disease;
         this.user = user;
         this.incidenceDate = LocalDate.now();
@@ -28,11 +28,11 @@ public class IncidenceRequest {
         this.disease = disease;
     }
 
-    public User getUser() {
+    public Users getUser() {
         return this.user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Users user) {
         this.user = user;
     }
 

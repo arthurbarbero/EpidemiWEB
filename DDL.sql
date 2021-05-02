@@ -121,10 +121,10 @@ INSERT INTO users.adr_address(st_address, nm_number, st_complement, st_district,
 VALUES ('Rua. Fictícia', 123, 'Casa azul', 'Bairro bom', 'Cidade boa', 'Estado bom', 'País bom também');
 
 INSERT INTO users.usr_users(st_name, st_email, st_password, id_address)
-VALUES ('First_User', 'first_user@email.com', '123456', 1);
+VALUES ('First_User', 'first_user@email.com', '$2a$10$i3.Z8Yv1Fwl0I5SNjdCGkOTRGQjGvHjh/gMZhdc3e7LIovAklqM6C', 1);
 
 INSERT INTO users.grp_groups (st_name) 
-VALUES ('PATIENT'), ('HEALTH_AGENT');
+VALUES ('ROLE_PATIENT'), ('ROLE_HEALTH_AGENT');
 
 INSERT INTO users.users_groups (id_user, id_group)
 VALUES (1, 1), (1, 2);

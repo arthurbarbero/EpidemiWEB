@@ -2,7 +2,7 @@ package br.gov.sp.fatec.epidemiweb.Controller;
 
 public class View {
     
-    public static class User {}
+    public static class Users {}
 
     public static class Group {}
 

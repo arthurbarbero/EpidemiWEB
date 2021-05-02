@@ -2,24 +2,30 @@ package br.gov.sp.fatec.epidemiweb.Services;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.gov.sp.fatec.epidemiweb.Entities.Address;
 import br.gov.sp.fatec.epidemiweb.Entities.Group;
-import br.gov.sp.fatec.epidemiweb.Entities.User;
-import br.gov.sp.fatec.epidemiweb.Exceptions.NotFoundException;
+import br.gov.sp.fatec.epidemiweb.Entities.Users;
 import br.gov.sp.fatec.epidemiweb.Exceptions.BadRequestException;
+import br.gov.sp.fatec.epidemiweb.Exceptions.NotFoundException;
 import br.gov.sp.fatec.epidemiweb.Repositories.AddressRepository;
 import br.gov.sp.fatec.epidemiweb.Repositories.GroupRepository;
 import br.gov.sp.fatec.epidemiweb.Repositories.UserRepository;
 
 @Service("userService")
 @Transactional
-public class UserServiceImpl implements UserService  {
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private GroupRepository groupRepo;
@@ -30,9 +36,13 @@ public class UserServiceImpl implements UserService  {
     @Autowired
     private AddressRepository addressRepo;
 
+    @Autowired
+    private PasswordEncoder passEncoder;
+
     @Override
-    public User getUserById(int id) {
-        User foundUser = userRepo.findById(id).get();
+    @PreAuthorize("isAuthenticated()")
+    public Users getUserById(int id) {
+        Users foundUser = userRepo.findById(id).get();
         if (foundUser == null) {
             throw new NotFoundException("Não foi possível encontrar o usuário.");
         }
@@ -40,21 +50,23 @@ public class UserServiceImpl implements UserService  {
     }
 
     @Override
-    public User saveUser(String name, String email, String password, Address newAddress, String role) {
+    @PreAuthorize("hasRole('HEALTH_AGENT')")
+    public Users saveUser(String name, String email, String password, Address newAddress, String role) {
         // Creating Address
         addressRepo.save(newAddress);
         if (newAddress == null) {
             throw new NotFoundException("Não foi possível salvar o endereço informado.");
         }
 
-        //Getting the informed role
+        // Getting the informed role
         Group group = groupRepo.findByName(role);
         if (group == null) {
             throw new NotFoundException("Não foi possível encontrar o grupo de usuário informado.");
-        };
-        
-        // Creating User
-        User newUser = new User(name, email, password);
+        }
+        ;
+
+        // Creating Users
+        Users newUser = new Users(name, email, passEncoder.encode(password));
         newUser.setAddress(newAddress);
         newUser.getGroups().add(group);
         userRepo.save(newUser);
@@ -63,22 +75,15 @@ public class UserServiceImpl implements UserService  {
     }
 
     @Override
-    public User getUser(String email, String password) {
-        User foundUser = userRepo.findByEmailAndPassword(email, password);
-        if (foundUser == null) {
-            throw new NotFoundException("Não foi possível encontrar o usuário a partir do email/senha informados, tente novamente.");
-        }
-        return foundUser;
-    }
-
-    @Override
-    public List<User> getAllUsers() {
+    @PreAuthorize("hasRole('HEALTH_AGENT')")
+    public List<Users> getAllUsers() {
         return userRepo.findAll();
     }
 
     @Override
-    public User update(User newUser) {
-        User oldUser = userRepo.findById(newUser.getId()).get();
+    @PreAuthorize("hasAnyRole('PATIENT', 'HEALTH_AGENT')")
+    public Users update(Users newUser) {
+        Users oldUser = userRepo.findById(newUser.getId()).get();
         Address oldAddress = addressRepo.findById(newUser.getAddress().getId()).get();
         if (oldUser == null) {
             throw new NotFoundException("Não foi encontrado o usuário para o id informado.");
@@ -105,8 +110,9 @@ public class UserServiceImpl implements UserService  {
     }
 
     @Override
-    public void deleteById(User user) {
-        try{
+    @PreAuthorize("isAuthenticated()")
+    public void deleteById(Users user) {
+        try {
             if (user == null) {
                 throw new NotFoundException("Não foi encontrado o usuário para o id informado.");
             }
@@ -114,6 +120,18 @@ public class UserServiceImpl implements UserService  {
         } catch (Exception e) {
             throw new NotFoundException(e.getMessage());
         }
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Users user = userRepo.findByEmail(email);
+        if (user == null) {
+            throw new UsernameNotFoundException("Users " + email + " not found");
+        }
+        
+        return User.builder().username(email).password(user.getPassword()).authorities(user.getGroups().stream()
+                        .map(Group::getName).collect(Collectors.toList()).toArray(new String[user.getGroups().size()])
+                    ).build();
     }
 
 }

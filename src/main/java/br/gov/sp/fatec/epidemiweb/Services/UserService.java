@@ -2,20 +2,20 @@ package br.gov.sp.fatec.epidemiweb.Services;
 
 import java.util.List;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
+
 import br.gov.sp.fatec.epidemiweb.Entities.*;
 
-public interface UserService {
+public interface UserService extends UserDetailsService {
 
-    public User saveUser(String name, String email, String password, Address address, String role);
+    public Users saveUser(String name, String email, String password, Address address, String role);
 
-    public User getUser(String email, String password);
+    public Users getUserById(int id);
 
-    public User getUserById(int id);
+    public List<Users> getAllUsers();
 
-    public List<User> getAllUsers();
+    public Users update(Users newUser);
 
-    public User update(User newUser);
-
-    public void deleteById(User user); 
+    public void deleteById(Users user); 
 
 }
