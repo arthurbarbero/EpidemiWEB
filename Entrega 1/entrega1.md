@@ -273,9 +273,9 @@ Os repositórios estendem suas funcionalidades aos métodos intrínsecos da bibl
   [../src/main/java/br/gov/sp/fatec/epidemiweb/Repositories/UserRepository.java](https://github.com/arthurbarbero/EpidemiWEB/blob/main/src/main/java/br/gov/sp/fatec/epidemiweb/Repositories/UserRepository.java)
   
   ```java
-    public interface UserRepository extends JpaRepository<User, Integer>  {
+    public interface UserRepository extends JpaRepository<Users, Integer>  {
     
-        public User findByEmailAndPassword(String email, String password);
+        public Users findByEmailAndPassword(String email, String password);
 
     }
   ```
@@ -321,7 +321,7 @@ Muitas destas regras serão criadas de acordo com o andamento do projeto, porém
 
       import br.gov.sp.fatec.epidemiweb.Entities.Disease;
       import br.gov.sp.fatec.epidemiweb.Entities.Incidence;
-      import br.gov.sp.fatec.epidemiweb.Entities.User;
+      import br.gov.sp.fatec.epidemiweb.Entities.Users;
       import br.gov.sp.fatec.epidemiweb.Repositories.IncidenceRepository;
 
       @Service("incidenceService")
@@ -333,7 +333,7 @@ Muitas destas regras serão criadas de acordo com o andamento do projeto, porém
 
 
           @Override
-          public Incidence saveIncidence(LocalDate incidenceDate, Disease disease, User user) {
+          public Incidence saveIncidence(LocalDate incidenceDate, Disease disease, Users user) {
               try {
                   Incidence newIncidence = new Incidence(incidenceDate, disease, user);
                   incidenceRepo.save(newIncidence);
@@ -362,7 +362,7 @@ Muitas destas regras serão criadas de acordo com o andamento do projeto, porém
           }
 
           @Override
-          public List<Incidence> getAllIncidenceByUser(User user) {
+          public List<Incidence> getAllIncidenceByUser(Users user) {
               try {
                   List<Incidence> allIncidence = new ArrayList<Incidence>(user.getIncidences());
                   if (allIncidence.size() <= 0) {
@@ -390,7 +390,7 @@ Muitas destas regras serão criadas de acordo com o andamento do projeto, porém
           }
 
           @Override
-          public List<Incidence> getAllIncidenceByUserAndDisease(User user, Disease disease) {
+          public List<Incidence> getAllIncidenceByUserAndDisease(Users user, Disease disease) {
               try {
                   List<Incidence> allIncidence = new ArrayList<Incidence>(
                       incidenceRepo.findAllIncidencesByUserAndDisease(
@@ -436,7 +436,7 @@ Para todos os métodos criamos testes simples para que o projeto em si possa ser
 
       import br.gov.sp.fatec.epidemiweb.Entities.Disease;
       import br.gov.sp.fatec.epidemiweb.Entities.Incidence;
-      import br.gov.sp.fatec.epidemiweb.Entities.User;
+      import br.gov.sp.fatec.epidemiweb.Entities.Users;
       import br.gov.sp.fatec.epidemiweb.Repositories.DiseaseRepository;
       import br.gov.sp.fatec.epidemiweb.Repositories.UserRepository;
       import br.gov.sp.fatec.epidemiweb.Services.IncidenceService;
@@ -455,7 +455,7 @@ Para todos os métodos criamos testes simples para que o projeto em si possa ser
 
         @Test
           void saveIncidenceTest() {
-              User tempUser = userRepo.findById(1).get();
+              Users tempUser = userRepo.findById(1).get();
               Disease tempDisease = diseaseRepo.findById(1).get();
               Incidence newIncidence = incidenceBO.saveIncidence(LocalDate.now(), tempDisease, tempUser);
           assertNotNull(newIncidence.getId());
@@ -469,7 +469,7 @@ Para todos os métodos criamos testes simples para que o projeto em si possa ser
 
           @Test
           void getAllIncidenceByUserTest() {
-              User tempUser = userRepo.findById(1).get();
+              Users tempUser = userRepo.findById(1).get();
               List<Incidence> allIncidence = incidenceBO.getAllIncidenceByUser(tempUser);
               assertNotNull(allIncidence.get(0));
           }
@@ -484,7 +484,7 @@ Para todos os métodos criamos testes simples para que o projeto em si possa ser
           @Test
           void getAllIncidenceByUserAndDiseaseTest() {
               Disease tempDisease = diseaseRepo.findById(1).get();
-              User tempUser = userRepo.findById(1).get();
+              Users tempUser = userRepo.findById(1).get();
               List<Incidence> allIncidence = incidenceBO.getAllIncidenceByUserAndDisease(tempUser, tempDisease);
               assertNotNull(allIncidence.get(0));
           }

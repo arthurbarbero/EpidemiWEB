@@ -7,11 +7,12 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import br.gov.sp.fatec.epidemiweb.Entities.Disease;
 import br.gov.sp.fatec.epidemiweb.Entities.Incidence;
-import br.gov.sp.fatec.epidemiweb.Entities.User;
+import br.gov.sp.fatec.epidemiweb.Entities.Users;
 import br.gov.sp.fatec.epidemiweb.Exceptions.BadRequestException;
 import br.gov.sp.fatec.epidemiweb.Exceptions.NotFoundException;
 import br.gov.sp.fatec.epidemiweb.Repositories.IncidenceRepository;
@@ -25,7 +26,8 @@ public class IncidenceServiceImpl implements IncidenceService{
 
 
     @Override
-    public Incidence saveIncidence(LocalDate incidenceDate, Disease disease, User user) {
+    @PreAuthorize("hasRole('HEALTH_AGENT')")
+    public Incidence saveIncidence(LocalDate incidenceDate, Disease disease, Users user) {
         try {
             Incidence newIncidence = new Incidence(incidenceDate, disease, user);
             incidenceRepo.save(newIncidence);
@@ -40,6 +42,7 @@ public class IncidenceServiceImpl implements IncidenceService{
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public List<Incidence> getAllIncidences() {
         try {
             List<Incidence> allIncidence = new ArrayList<Incidence>(incidenceRepo.findAll());
@@ -54,7 +57,8 @@ public class IncidenceServiceImpl implements IncidenceService{
     }
 
     @Override
-    public List<Incidence> getAllIncidenceByUser(User user) {
+    @PreAuthorize("isAuthenticated()")
+    public List<Incidence> getAllIncidenceByUser(Users user) {
         try {
             List<Incidence> allIncidence = new ArrayList<Incidence>(user.getIncidences());
             if (allIncidence.size() <= 0) {
@@ -68,6 +72,7 @@ public class IncidenceServiceImpl implements IncidenceService{
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public List<Incidence> getAllIncidenceByDisease(Disease disease) {
         try {
             List<Incidence> allIncidence = new ArrayList<Incidence>(disease.getIncidences());
@@ -82,7 +87,8 @@ public class IncidenceServiceImpl implements IncidenceService{
     }
 
     @Override
-    public List<Incidence> getAllIncidenceByUserAndDisease(User user, Disease disease) {
+    @PreAuthorize("isAuthenticated()")
+    public List<Incidence> getAllIncidenceByUserAndDisease(Users user, Disease disease) {
         try {
             List<Incidence> allIncidence = new ArrayList<Incidence>(
                 incidenceRepo.findAllIncidencesByUserAndDisease(
@@ -101,6 +107,7 @@ public class IncidenceServiceImpl implements IncidenceService{
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public Incidence getById(int id) {
         Incidence foundIncidence = incidenceRepo.findById(id).get();
         if (foundIncidence == null) {
@@ -110,6 +117,7 @@ public class IncidenceServiceImpl implements IncidenceService{
     }
 
     @Override
+    @PreAuthorize("hasRole('HEALTH_AGENT')")
     public Incidence update(Incidence newIncidence) {
         Incidence oldIncidence = incidenceRepo.findById(newIncidence.getId()).get();
         
@@ -127,6 +135,7 @@ public class IncidenceServiceImpl implements IncidenceService{
     }
 
     @Override
+    @PreAuthorize("hasRole('HEALTH_AGENT')")
     public void deleteById(Incidence incidence) {
         try{
             if (incidence == null) {

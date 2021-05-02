@@ -79,16 +79,16 @@ Para a criação das rotas, seguimos o padrão do Spring Boot, se utilizando das
     public class UserController {
       
       @GetMapping(value = "/getById/{id}")
-      public User GetUserById(@PathVariable(value = "id") int id) {...}
+      public Users GetUserById(@PathVariable(value = "id") int id) {...}
 
       @PostMapping(value = "/login")
-      public User GetUserByEmailAndPassword(@RequestBody User user) {...}
+      public Users GetUserByEmailAndPassword(@RequestBody Users user) {...}
 
       @PutMapping(value = "/update")
-      public ResponseEntity<User> UpdateDisease(@RequestBody User user) {...}
+      public ResponseEntity<Users> UpdateDisease(@RequestBody Users user) {...}
 
       @DeleteMapping(value = "/deleteById/{userId}")
-      public ResponseEntity<String> DeleteSymptomById(@PathVariable(value = "userId") User user) { ...}
+      public ResponseEntity<String> DeleteSymptomById(@PathVariable(value = "userId") Users user) { ...}
 
       ...
     }
@@ -107,9 +107,9 @@ A nova dependência "*jackson-dataformat-xml*", traz consigo uma anotação "*@J
   [../src/main/java/br/gov/sp/fatec/epidemiweb/Controller/UserController.java](https://github.com/arthurbarbero/EpidemiWEB/blob/main/src/main/java/br/gov/sp/fatec/epidemiweb/Controller/UserController.java)
   
   ```java
-    @JsonView(View.User.class)
+    @JsonView(View.Users.class)
     @GetMapping(value = "/getById/{id}")
-    public User GetUserById(@PathVariable(value = "id") int id) { ... }
+    public Users GetUserById(@PathVariable(value = "id") int id) { ... }
   ```
 
   [../src/main/java/br/gov/sp/fatec/epidemiweb/Controller/View.java](https://github.com/arthurbarbero/EpidemiWEB/blob/main/src/main/java/br/gov/sp/fatec/epidemiweb/Controller/View.java)
@@ -117,28 +117,28 @@ A nova dependência "*jackson-dataformat-xml*", traz consigo uma anotação "*@J
   ```java
   public class View {
     
-    public static class User {}
+    public static class Users {}
 
     ...
   }
   ```
 
-  [../src/main/java/br/gov/sp/fatec/epidemiweb/Controller/View.java](https://github.com/arthurbarbero/EpidemiWEB/blob/main/src/main/java/br/gov/sp/fatec/epidemiweb/Entity/User.java)
+  [../src/main/java/br/gov/sp/fatec/epidemiweb/Controller/View.java](https://github.com/arthurbarbero/EpidemiWEB/blob/main/src/main/java/br/gov/sp/fatec/epidemiweb/Entity/Users.java)
 
   ```java
   @Entity
   @Table(name = "usr_users", schema = "users")
-  public class User {
+  public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user", columnDefinition = "Serial")
     private Integer id;
 
-    @JsonView({View.User.class, View.DiseaseIncidences.class, View.IncidenceComplete.class})
+    @JsonView({View.Users.class, View.DiseaseIncidences.class, View.IncidenceComplete.class})
     @Column(name="st_name", nullable=false)
     private String name;
 
-    @JsonView(View.User.class)
+    @JsonView(View.Users.class)
     @Column(name="st_email", nullable=false, unique=true)
     private String email;
 
@@ -147,7 +147,7 @@ A nova dependência "*jackson-dataformat-xml*", traz consigo uma anotação "*@J
   ```
 </details>
 
-No exemplo acima podemos perceber que se solicitarmos informações da rota "*/api/user/getById/{id}*", o seu retorno terá apenas os atributos escolhidos com a anotação "*@JsonView(View.User.class)*" formatados em Json ou XML conforme o requisitado nos headers, (*Content-type: application/json*).
+No exemplo acima podemos perceber que se solicitarmos informações da rota "*/api/user/getById/{id}*", o seu retorno terá apenas os atributos escolhidos com a anotação "*@JsonView(View.Users.class)*" formatados em Json ou XML conforme o requisitado nos headers, (*Content-type: application/json*).
 
  ## Confirguração de tratamento de CORS
 
@@ -164,9 +164,9 @@ No exemplo acima podemos perceber que se solicitarmos informações da rota "*/a
   @CrossOrigin
   public class UserController {
     
-    @JsonView(View.User.class)
+    @JsonView(View.Users.class)
     @GetMapping(value = "/getById/{id}")
-    public User GetUserById(@PathVariable(value = "id") int id) {
+    public Users GetUserById(@PathVariable(value = "id") int id) {
       return userService.getUserById(id);
     }
 

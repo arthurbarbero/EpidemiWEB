@@ -7,6 +7,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import br.gov.sp.fatec.epidemiweb.Entities.Disease;
@@ -17,10 +18,12 @@ import br.gov.sp.fatec.epidemiweb.Repositories.DiseaseRepository;
 @Service("diseaseService")
 @Transactional
 public class DiseaseServiceImpl implements DiseaseService {
+    
     @Autowired
     private DiseaseRepository diseaseRepo;
 
     @Override
+    @PreAuthorize("hasRole('HEALTH_AGENT')")
     public Disease saveDisease(String name) {
         try {
             Disease newDisease = new Disease(name);
@@ -36,6 +39,7 @@ public class DiseaseServiceImpl implements DiseaseService {
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public List<Disease> getAllDisease() {
         try {
             List<Disease> allDiseases = new ArrayList<Disease>(diseaseRepo.findAll());
@@ -49,6 +53,7 @@ public class DiseaseServiceImpl implements DiseaseService {
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public Disease getDiseaseByName(String name) {
         try {
             Disease foundDisease = diseaseRepo.findByName(name);
@@ -63,6 +68,7 @@ public class DiseaseServiceImpl implements DiseaseService {
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public Disease getById(int id) {
         Disease foundDisease = diseaseRepo.findById(id).get();
         if (foundDisease == null) {
@@ -72,6 +78,7 @@ public class DiseaseServiceImpl implements DiseaseService {
     }
 
     @Override
+    @PreAuthorize("hasRole('HEALTH_AGENT')")
     public Disease update(Disease newDisease) {
         Disease oldDisease = diseaseRepo.findById(newDisease.getId()).get();
         if (oldDisease == null) {
@@ -86,6 +93,7 @@ public class DiseaseServiceImpl implements DiseaseService {
     }
 
     @Override
+    @PreAuthorize("hasRole('HEALTH_AGENT')")
     public void deleteById(Disease disease) {
         try{
             if (disease == null) {

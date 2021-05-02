@@ -7,6 +7,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import br.gov.sp.fatec.epidemiweb.Entities.Disease;
@@ -23,6 +24,7 @@ public class SymptomServiceImpl implements SymptomService {
     private SymptomRepository symptomRepo;
 
     @Override
+    @PreAuthorize("hasRole('HEALTH_AGENT')")
     public Symptom saveSymptom(String name, String description, int severity) {
         try {
             Symptom newSymptom = new Symptom(name, description, severity);
@@ -38,6 +40,7 @@ public class SymptomServiceImpl implements SymptomService {
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public List<Symptom> getAllSymptoms() {
         try {
             List<Symptom> allSymptoms = new ArrayList<Symptom>(symptomRepo.findAll());
@@ -52,6 +55,7 @@ public class SymptomServiceImpl implements SymptomService {
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public List<Symptom> getAllSymptomsByDisease(Disease disease) {
         try {
             List<Symptom> allSymptoms = new ArrayList<Symptom>(disease.getSymptoms());
@@ -66,6 +70,7 @@ public class SymptomServiceImpl implements SymptomService {
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public Symptom getById(int id) {
         Symptom foundSymptom = symptomRepo.findById(id).get();
         if (foundSymptom == null) {
@@ -75,6 +80,7 @@ public class SymptomServiceImpl implements SymptomService {
     }
 
     @Override
+    @PreAuthorize("hasRole('HEALTH_AGENT')")
     public void deleteById(Symptom symptom) {
         try{
             if (symptom == null) {
@@ -87,6 +93,7 @@ public class SymptomServiceImpl implements SymptomService {
     }
 
     @Override
+    @PreAuthorize("hasRole('HEALTH_AGENT')")
     public Symptom update(Symptom newSymptom) {
         Symptom oldSymptom = symptomRepo.findById(newSymptom.getId()).get();
         if (oldSymptom == null) {

@@ -44,13 +44,13 @@ public class Incidence {
     @JsonView({View.DiseaseIncidences.class, View.IncidenceComplete.class})
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_user")
-    private User user;
+    private Users user;
     
     public Incidence() {
 
     }
 
-    public Incidence(LocalDate incidenceDate, Disease disease, User user) {
+    public Incidence(LocalDate incidenceDate, Disease disease, Users user) {
         this.incidenceDate = incidenceDate;
         this.createdAt = LocalDate.now();
         this.updateAt = LocalDate.now();
@@ -99,11 +99,11 @@ public class Incidence {
         this.disease = disease;
     }
 
-    public User getUser() {
+    public Users getUser() {
         return this.user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Users user) {
         this.user = user;
     }
 

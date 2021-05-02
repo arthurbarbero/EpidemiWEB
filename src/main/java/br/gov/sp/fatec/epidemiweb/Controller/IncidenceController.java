@@ -17,16 +17,16 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.gov.sp.fatec.epidemiweb.Entities.Disease;
 import br.gov.sp.fatec.epidemiweb.Entities.Incidence;
-import br.gov.sp.fatec.epidemiweb.Entities.User;
+import br.gov.sp.fatec.epidemiweb.Entities.Users;
 import br.gov.sp.fatec.epidemiweb.Entities.RequestModel.IncidenceRequest;
 import br.gov.sp.fatec.epidemiweb.Services.IncidenceService;
 
-@RestControllerAdvice
+@RestController
 @RequestMapping(value = "/incidence")
 @CrossOrigin
 public class IncidenceController {
@@ -67,7 +67,7 @@ public class IncidenceController {
 
     @JsonView(View.IncidenceComplete.class)
     @GetMapping(value = "/getAllByUser/{userId}")
-    public List<Incidence> GetAllIncidenceByUser(@PathVariable(value = "userId") User user) {
+    public List<Incidence> GetAllIncidenceByUser(@PathVariable(value = "userId") Users user) {
         return incidenceService.getAllIncidenceByUser(user);
     }
 
@@ -79,7 +79,7 @@ public class IncidenceController {
 
     @JsonView(View.IncidenceComplete.class)
     @GetMapping(value = "/getAllByDiseaseAndUser")
-    public List<Incidence> GetAllIncidenceByDiseaseAndUser(@RequestParam(value = "disease") Disease disease, @RequestParam(value = "user") User user) {
+    public List<Incidence> GetAllIncidenceByDiseaseAndUser(@RequestParam(value = "disease") Disease disease, @RequestParam(value = "user") Users user) {
         return incidenceService.getAllIncidenceByUserAndDisease(user, disease);
     }
 

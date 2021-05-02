@@ -14,7 +14,7 @@ import org.springframework.test.annotation.Rollback;
 
 import br.gov.sp.fatec.epidemiweb.Entities.Disease;
 import br.gov.sp.fatec.epidemiweb.Entities.Incidence;
-import br.gov.sp.fatec.epidemiweb.Entities.User;
+import br.gov.sp.fatec.epidemiweb.Entities.Users;
 import br.gov.sp.fatec.epidemiweb.Repositories.DiseaseRepository;
 import br.gov.sp.fatec.epidemiweb.Repositories.UserRepository;
 import br.gov.sp.fatec.epidemiweb.Services.IncidenceService;
@@ -33,7 +33,7 @@ class IncidenceTests {
 
 	@Test
     void saveIncidenceTest() {
-        User tempUser = userRepo.findById(1).get();
+        Users tempUser = userRepo.findById(1).get();
         Disease tempDisease = diseaseRepo.findById(1).get();
         Incidence newIncidence = incidenceBO.saveIncidence(LocalDate.now(), tempDisease, tempUser);
 		assertNotNull(newIncidence.getId());
@@ -47,7 +47,7 @@ class IncidenceTests {
 
     @Test
     void getAllIncidenceByUserTest() {
-        User tempUser = userRepo.findById(1).get();
+        Users tempUser = userRepo.findById(1).get();
         List<Incidence> allIncidence = incidenceBO.getAllIncidenceByUser(tempUser);
         assertNotNull(allIncidence.get(0));
     }
@@ -62,7 +62,7 @@ class IncidenceTests {
     @Test
     void getAllIncidenceByUserAndDiseaseTest() {
         Disease tempDisease = diseaseRepo.findById(1).get();
-        User tempUser = userRepo.findById(1).get();
+        Users tempUser = userRepo.findById(1).get();
         List<Incidence> allIncidence = incidenceBO.getAllIncidenceByUserAndDisease(tempUser, tempDisease);
         assertNotNull(allIncidence.get(0));
     }

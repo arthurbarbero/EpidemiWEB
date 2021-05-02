@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.gov.sp.fatec.epidemiweb.Entities.Disease;
 import br.gov.sp.fatec.epidemiweb.Services.DiseaseService;
 
-@RestControllerAdvice
+@RestController
 @RequestMapping(value = "/disease")
 @CrossOrigin
 public class DiseaseController {
@@ -57,6 +57,7 @@ public class DiseaseController {
         return new ResponseEntity<Disease>(newDisease, header, HttpStatus.CREATED);
     }
 
+    @JsonView(View.DiseaseResume.class)
     @PutMapping(value = "/update")
     public ResponseEntity<Disease> UpdateDisease(@RequestBody Disease disease) {
         Disease updatedSymptom = diseaseService.update(disease);

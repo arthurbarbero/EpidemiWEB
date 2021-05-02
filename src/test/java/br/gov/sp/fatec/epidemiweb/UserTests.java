@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 
 import br.gov.sp.fatec.epidemiweb.Entities.Address;
-import br.gov.sp.fatec.epidemiweb.Entities.User;
+import br.gov.sp.fatec.epidemiweb.Entities.Users;
 import br.gov.sp.fatec.epidemiweb.Services.UserService;
 
 @SpringBootTest
@@ -32,19 +32,13 @@ class UserTests {
 		"state", 
 		"country");
 
-		User newUser = userBO.saveUser(
+		Users newUser = userBO.saveUser(
 			"name", 
 			"email", 
 			"password", 
 			newAddress,
 			"PATIENT");
 		assertNotNull(newUser.getId());
-	}
-
-	@Test
-	void getUserTest(){
-		User foundUser = userBO.getUser("first_user@email.com", "123456");
-		assertNotNull(foundUser.getId());
 	}
 
 }

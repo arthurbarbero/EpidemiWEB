@@ -1,10 +1,10 @@
 package br.gov.sp.fatec.epidemiweb.Entities.RequestModel;
 
 import br.gov.sp.fatec.epidemiweb.Entities.Address;
-import br.gov.sp.fatec.epidemiweb.Entities.User;
+import br.gov.sp.fatec.epidemiweb.Entities.Users;
 
 public class UserRequest {
-    private User user;
+    private Users user;
     private Address address;
     private String role;
 
@@ -12,17 +12,17 @@ public class UserRequest {
         
     }
 
-    public UserRequest(User user, Address address, String role) {
+    public UserRequest(Users user, Address address, String role) {
         this.user = user;
         this.address = address;
         this.role = role;
     }
 
-    public User getUser() {
+    public Users getUser() {
         return this.user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Users user) {
         this.user = user;
     }
 

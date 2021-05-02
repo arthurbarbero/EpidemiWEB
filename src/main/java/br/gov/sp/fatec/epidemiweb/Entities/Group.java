@@ -25,21 +25,21 @@ public class Group {
     @Column(name = "id_group", columnDefinition = "Serial")
     private Integer id;
 
-    @JsonView({View.User.class, View.Group.class})
+    @JsonView({View.Users.class, View.Group.class})
     @Column(name="st_name", nullable=false)
     private String name;
 
-    @JsonView({View.User.class, View.Group.class})
+    @JsonView({View.Users.class, View.Group.class})
     @Column(name="created_at", nullable=true)
     private LocalDate createdAt;
 
-    @JsonView({View.User.class, View.Group.class})
+    @JsonView({View.Users.class, View.Group.class})
     @Column(name="updated_at", nullable=true)
     private LocalDate updateAt;
 
     @JsonView(View.Group.class)
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "groups")
-    private Set<User> users;
+    private Set<Users> users;
 
     public Group() {
     }
@@ -48,7 +48,7 @@ public class Group {
         this.name = name;
         this.createdAt = createdAt;
         this.updateAt = updateAt;
-        this.users = new HashSet<User>();
+        this.users = new HashSet<Users>();
     }
 
     
@@ -84,11 +84,11 @@ public class Group {
         this.updateAt = updateAt;
     }
 
-    public Set<User> getUsers() {
+    public Set<Users> getUsers() {
         return this.users;
     }
 
-    public void setUsers(Set<User> users) {
+    public void setUsers(Set<Users> users) {
         this.users = users;
     }
 }
