@@ -41,10 +41,4 @@ class UserTests {
 		assertNotNull(newUser.getId());
 	}
 
-	@Test
-	void getUserTest(){
-		Users foundUser = userBO.getUser("first_user@email.com", "123456");
-		assertNotNull(foundUser.getId());
-	}
-
 }
