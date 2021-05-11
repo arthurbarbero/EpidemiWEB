@@ -50,7 +50,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @PreAuthorize("hasRole('HEALTH_AGENT')")
     public Users saveUser(String name, String email, String password, Address newAddress, String role) {
         // Creating Address
         addressRepo.save(newAddress);
