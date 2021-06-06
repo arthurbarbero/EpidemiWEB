@@ -21,6 +21,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.gov.sp.fatec.epidemiweb.Entities.Disease;
 import br.gov.sp.fatec.epidemiweb.Entities.Symptom;
+import br.gov.sp.fatec.epidemiweb.Entities.RequestModel.SymptomRequest;
 import br.gov.sp.fatec.epidemiweb.Services.SymptomService;
 
 @RestController
@@ -51,8 +52,8 @@ public class SymptomController {
 
     @JsonView(View.SymptomResumed.class)
     @PostMapping(value = "/register")
-    public ResponseEntity<Symptom> RegisterSymptom(@RequestBody Symptom symptom, UriComponentsBuilder uriComponentsBuilder) {
-        Symptom newSymptom = symptomService.saveSymptom(symptom.getName(), symptom.getDescription(), symptom.getSeverity());
+    public ResponseEntity<Symptom> RegisterSymptom(@RequestBody SymptomRequest symptom, UriComponentsBuilder uriComponentsBuilder) {
+        Symptom newSymptom = symptomService.saveSymptom(symptom.getName(), symptom.getDescription(), symptom.getSeverity(), symptom.getDiseases());
 
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(

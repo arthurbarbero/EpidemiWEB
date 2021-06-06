@@ -8,7 +8,7 @@ import br.gov.sp.fatec.epidemiweb.Entities.Symptom;
 public interface SymptomService {
     
     // CREATE
-    public Symptom saveSymptom(String name, String description, int severity);
+    public Symptom saveSymptom(String name, String description, int severity, List<Integer> listOfDiseases);
 
     // READ
     public Symptom getById(int id);

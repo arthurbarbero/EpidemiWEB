@@ -1,5 +1,7 @@
 package br.gov.sp.fatec.epidemiweb.Controller;
 
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,7 @@ public class LoginController {
         auth = authManager.authenticate(auth);
         login.setPassword(null);
         login.setTokenKey(JwtUtils.generateToken(auth));
+        login.setGroups(auth.getAuthorities().stream().map(x -> x.getAuthority().toString()).collect(Collectors.toList()).toArray(new String[auth.getAuthorities().size()]));
         return login;
     }
 }

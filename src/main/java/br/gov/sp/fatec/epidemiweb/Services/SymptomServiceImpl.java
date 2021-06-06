@@ -2,6 +2,7 @@ package br.gov.sp.fatec.epidemiweb.Services;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -14,6 +15,7 @@ import br.gov.sp.fatec.epidemiweb.Entities.Disease;
 import br.gov.sp.fatec.epidemiweb.Entities.Symptom;
 import br.gov.sp.fatec.epidemiweb.Exceptions.BadRequestException;
 import br.gov.sp.fatec.epidemiweb.Exceptions.NotFoundException;
+import br.gov.sp.fatec.epidemiweb.Repositories.DiseaseRepository;
 import br.gov.sp.fatec.epidemiweb.Repositories.SymptomRepository;
 
 @Service("symptomService")
@@ -23,11 +25,16 @@ public class SymptomServiceImpl implements SymptomService {
     @Autowired
     private SymptomRepository symptomRepo;
 
+    @Autowired
+    private DiseaseRepository diseaseRepo;
+
     @Override
     @PreAuthorize("hasRole('HEALTH_AGENT')")
-    public Symptom saveSymptom(String name, String description, int severity) {
+    public Symptom saveSymptom(String name, String description, int severity, List<Integer> listOfDiseases ) {
         try {
+            List<Disease> diseases = diseaseRepo.findAllById(listOfDiseases);
             Symptom newSymptom = new Symptom(name, description, severity);
+            newSymptom.setDiseases(new HashSet<Disease>(diseases));
             symptomRepo.save(newSymptom);
             if (newSymptom.getId() == null) {
                 throw new Exception("Ocorreu um erro ao tentar salvar o novo sintoma");

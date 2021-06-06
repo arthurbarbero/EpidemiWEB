@@ -36,7 +36,7 @@ public class Incidence {
     @Column(name="updated_at", nullable=true)
     private LocalDate updateAt;
 
-    @JsonView(View.IncidenceComplete.class)
+    @JsonView({View.IncidenceComplete.class, View.IncidenceResumed.class})
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_disease")
     private Disease disease;
