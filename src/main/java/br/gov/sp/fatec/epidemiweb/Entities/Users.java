@@ -25,6 +25,7 @@ import java.util.Set;
 @Table(name = "usr_users", schema = "users")
 public class Users {
     @Id
+    @JsonView({View.Users.class, View.DiseaseIncidences.class, View.IncidenceComplete.class})
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user", columnDefinition = "Serial")
     private Integer id;

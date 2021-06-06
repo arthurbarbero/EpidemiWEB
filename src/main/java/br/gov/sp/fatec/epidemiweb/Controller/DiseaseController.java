@@ -30,7 +30,7 @@ public class DiseaseController {
     @Autowired
     private DiseaseService diseaseService;
 
-    @JsonView(View.DiseaseResume.class)
+    @JsonView(View.DiseaseIncidences.class)
     @GetMapping(value = "/getAll")
     public List<Disease> GetAllDisease() {
         return diseaseService.getAllDisease();
