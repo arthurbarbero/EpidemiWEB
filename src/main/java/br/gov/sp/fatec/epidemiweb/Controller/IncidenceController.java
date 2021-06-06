@@ -40,7 +40,7 @@ public class IncidenceController {
         return incidenceService.getById(id);
     }
 
-    @JsonView(View.IncidenceResumed.class)
+    @JsonView(View.IncidenceComplete.class)
     @GetMapping(value = "/getAll")
     public List<Incidence> GetAllIncidence() {
         return incidenceService.getAllIncidences();
