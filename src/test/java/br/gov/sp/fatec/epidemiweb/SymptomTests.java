@@ -2,6 +2,7 @@ package br.gov.sp.fatec.epidemiweb;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -24,7 +25,9 @@ class SymptomTests {
 
 	@Test
 	void saveSymptomTest() {
-		Symptom newSymptom = symptomBO.saveSymptom("name", "description", 2);
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(1);
+		Symptom newSymptom = symptomBO.saveSymptom("name", "description", 2, list);
 		assertNotNull(newSymptom.getId());
 	}
 
