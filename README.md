@@ -4,11 +4,11 @@ JAVA+Spring Boot+Spring Data JPA+JWT+Vue.JS
 
 ## Integrantes :bust_in_silhouette:
 
-- Arthur Barbero;
-- Felippe Alves de Paula;
-- Gabriel Landim;
-- José Vinícius Santana;
-- Thyago Odorico.
+- Arthur Barbero [LinkedIn](https://www.linkedin.com/in/arthur-barbero/) / [Github](https://github.com/arthurbarbero);
+- Felippe Alves [LinkedIn](https://www.linkedin.com/in/felippe-alves-de-paula/) / [Github](https://github.com/FelippeAlves);
+- Gabriel Landim [LinkeIn](https://www.linkedin.com/in/gabriel-landim-2b5bb8181/) / [Github](https://github.com/Glandim);
+- José Vinícius [LinkedIn](https://www.linkedin.com/in/jose-vinicius-ferreira-santana-903239181/) / [Github](https://github.com/JViniciusF).
+- Thyago Odorico [LinkeIn](https://www.linkedin.com/in/thyago-odorico-10ab8a11a/) / [Github](https://github.com/togarci).
 
 
 ## Objetivos :dart:
@@ -49,14 +49,22 @@ Conforme cronograma, os objetivos serão segregados pelas áreas de conhecimento
 
 ### Login / Cadastrar :page_facing_up:
 
+![Login]( | width="300" height="200" )
+
+![Cadastro]( | width="300" height="200" )
+
 ### DashBoard :chart_with_upwards_trend:
 
+![DashBoard]( | width="300" height="200" )
 ### Cadastrar Doença :syringe:
 
+![Cadastrar_doenças]( | width="300" height="200" )
 ### Cadastrar Sintoma :pill:
 
+![Cadastrar_sintomas]( | width="300" height="200" )
 ### Cadastrar Incidência :bookmark:
 
+![Cadastrar_incidencias]( | width="300" height="200" )
 
 ## Entregas :white_check_mark:
 
@@ -78,6 +86,8 @@ Conforme cronograma, os objetivos serão segregados pelas áreas de conhecimento
 ### Segurança JWT 11/05:
 - Inclusão de autenticação via JWT para as rotas;
 
+[Terceira Entrega](https://github.com/arthurbarbero/EpidemiWEB/blob/main/Entrega%203/entrega3.md)
+
 ### Front-End 01/06:
 - Boiler Plate para a criação dos componentes e paginas;
 - Controle de estado via VueX;
@@ -85,6 +95,24 @@ Conforme cronograma, os objetivos serão segregados pelas áreas de conhecimento
 - Consumo do Back-End via axios com tratamento de erros;
 - Elementos visuais diferentes por nível de acesso.
 
+[Quarta Entrega - Repositório do Front-End]()
 
 
+## Rodando o Projeto
+
+### Pré-requisitos:
+
+- [PostgreSQL](https://www.postgresql.org/);
+- [Java JDK 8](https://www.oracle.com/br/java/technologies/javase/javase-jdk8-downloads.html);
+- Conhecimentos básicos de SQL e POO.
+
+- Crie o banco de dados inicial:
+  - Crie um database com o nome `epidemiweb`;
+  - O projeto ja conta com um arquivo sql que realiza a criação das tabelas, esquemas e usuários, apenas copie e utilize em seu gerenciador de bancos ou o próprio [PGAdmin](https://www.pgadmin.org/download/) que vem junto ao instalar o PostgreSQL;
+  - Para mais informações sobre como criar e utilizar o PgAdmin, [acesse esse tutorial](https://www.devmedia.com.br/postgresql-tutorial/33025).
+
+- Clone o repositório.
+- Na raiz da pasta, abra um terminal ou cmd e utilize o comando `./mvnw.exe clean install` que ira instalar todas as dependências;
+- Para rodar o projeto utilize o comando `./mvnw.exe clean spring-boot:run`.
+- Acesse o projeto em `http://localhost:8082/api/`
 

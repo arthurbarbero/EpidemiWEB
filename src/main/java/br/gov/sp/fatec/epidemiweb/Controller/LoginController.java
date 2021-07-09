@@ -19,7 +19,7 @@ import br.gov.sp.fatec.epidemiweb.Security.LoginModel;
 
 @RestController
 @RequestMapping(value = "/login")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:8080")
 public class LoginController {
     
     @Autowired
