@@ -49,22 +49,22 @@ Conforme cronograma, os objetivos serão segregados pelas áreas de conhecimento
 
 ### Login / Cadastrar :page_facing_up:
 
-![Login]( | width="300" height="200" )
+![Login](https://github.com/arthurbarbero/EpidemiWEB/raw/main/Entrega%204/Login.PNG)
 
-![Cadastro]( | width="300" height="200" )
+![Cadastro](https://github.com/arthurbarbero/EpidemiWEB/raw/main/Entrega%204/Register.PNG)
 
 ### DashBoard :chart_with_upwards_trend:
 
-![DashBoard]( | width="300" height="200" )
+![DashBoard](https://github.com/arthurbarbero/EpidemiWEB/raw/main/Entrega%204/Dashboard.PNG)
 ### Cadastrar Doença :syringe:
 
-![Cadastrar_doenças]( | width="300" height="200" )
+![Cadastrar_doenças](https://github.com/arthurbarbero/EpidemiWEB/raw/main/Entrega%204/CadastrarDoen%C3%A7a.PNG)
 ### Cadastrar Sintoma :pill:
 
-![Cadastrar_sintomas]( | width="300" height="200" )
+![Cadastrar_sintomas](https://github.com/arthurbarbero/EpidemiWEB/raw/main/Entrega%204/CadastrarSintoma.PNG)
 ### Cadastrar Incidência :bookmark:
 
-![Cadastrar_incidencias]( | width="300" height="200" )
+![Cadastrar_incidencias](https://github.com/arthurbarbero/EpidemiWEB/raw/main/Entrega%204/CadastrarIncidencia.PNG)
 
 ## Entregas :white_check_mark:
 
@@ -95,7 +95,7 @@ Conforme cronograma, os objetivos serão segregados pelas áreas de conhecimento
 - Consumo do Back-End via axios com tratamento de erros;
 - Elementos visuais diferentes por nível de acesso.
 
-[Quarta Entrega - Repositório do Front-End]()
+[Quarta Entrega - Repositório do Front-End](https://github.com/arthurbarbero/EpidemiWEB-Front)
 
 
 ## Rodando o Projeto
